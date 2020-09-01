@@ -14,8 +14,11 @@ public class Student {
     String preferred_work_type;
     String preferred_hours;
     boolean location_flag, GPA_flag;
+    String faculty;
+    String course;
+    String work_type;
 
-    public Student(String name, String location, String email, String phone, String gender, int age, int study_year, int GPA, String preferred_gender, String preferred_meetings, String preferred_work_type, String preferred_hours, boolean location_flag, boolean GPA_flag) {
+    public Student(String name, String location, String email, String phone, String gender, int age, int study_year, int GPA, String preferred_gender, String preferred_meetings, String preferred_work_type, String preferred_hours, boolean location_flag, boolean GPA_flag, String faculty, String course, String work_type) {
         this.name = name;
         this.location = location;
         this.email = email;
@@ -30,6 +33,9 @@ public class Student {
         this.preferred_hours = preferred_hours;
         this.location_flag = location_flag;
         this.GPA_flag = GPA_flag;
+        this.faculty = faculty;
+        this.course = course;
+        this.work_type = work_type;
     }
 
     public String getName() {
@@ -143,4 +149,29 @@ public class Student {
     public void setGPA_flag(boolean GPA_flag) {
         this.GPA_flag = GPA_flag;
     }
+
+    public String getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
+    }
+
+    public String getWork_type() {
+        return work_type;
+    }
+
+    public void setWork_type(String work_type) {
+        this.work_type = work_type;
+    }
+
 }
