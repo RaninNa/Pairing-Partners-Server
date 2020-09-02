@@ -11,14 +11,14 @@ public class Student {
     int GPA;
     String preferred_gender;
     String preferred_meetings;
-    String preferred_work_type;
+    String preferred_work_plan;
     String preferred_hours;
     boolean location_flag, GPA_flag;
     String faculty;
     String course;
     String work_type;
 
-    public Student(String name, String location, String email, String phone, String gender, int age, String study_year, int GPA, String preferred_gender, String preferred_meetings, String preferred_work_type, String preferred_hours, boolean location_flag, boolean GPA_flag, String faculty, String course, String work_type) {
+    public Student(String name, String location, String email, String phone, String gender, int age, String study_year, int GPA, String preferred_gender, String preferred_meetings, String preferred_work_plan, String preferred_hours, boolean location_flag, boolean GPA_flag, String faculty, String course, String work_type) {
         this.name = name;
         this.location = location;
         this.email = email;
@@ -29,7 +29,7 @@ public class Student {
         this.GPA = GPA;
         this.preferred_gender = preferred_gender;
         this.preferred_meetings = preferred_meetings;
-        this.preferred_work_type = preferred_work_type;
+        this.preferred_work_plan = preferred_work_plan;
         this.preferred_hours = preferred_hours;
         this.location_flag = location_flag;
         this.GPA_flag = GPA_flag;
@@ -118,12 +118,12 @@ public class Student {
         this.preferred_meetings = preferred_meetings;
     }
 
-    public String getPreferred_work_type() {
-        return preferred_work_type;
+    public String getPreferred_work_plan() {
+        return preferred_work_plan;
     }
 
-    public void setPreferred_work_type(String preferred_work_type) {
-        this.preferred_work_type = preferred_work_type;
+    public void setPreferred_work_plan(String preferred_work_plan) {
+        this.preferred_work_plan = preferred_work_plan;
     }
 
     public String getPreferred_hours() {
