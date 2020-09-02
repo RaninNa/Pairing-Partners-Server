@@ -1,6 +1,8 @@
 package com.example.pairingserver;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -19,7 +21,15 @@ public class GetStudents extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.get_students);
 
-       final TextView textViewRes = (TextView) findViewById(R.id.TVRes);
+        final TextView textViewRes = (TextView) findViewById(R.id.TVRes);
+        final Button btnMatch = (Button) findViewById(R.id.btnMatch);
+        btnMatch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // HERE YOU CAN RUN THE ALGORITHM
+
+            }
+        });
 
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -80,32 +90,18 @@ public class GetStudents extends AppCompatActivity {
 
 
                                 }
-                                textViewRes.setText("There is " + ArrayStudentsCount + " Students");
+                                //textViewRes.setText("There is " + ArrayStudentsCount + " Students");
+                                float[][] Scores = new float[Globals.students.length][Globals.students.length];
 
-                                /*
-                                if (Globals.events != null && Globals.accounts != null) {
-                                    for (int d = 0; d < Globals.events.getCalendarEvents().length; d++) {
-                                        for (int i = 0; i < 12; i++) {
-                                            for (int c = 0; c < 31; c++) {
-                                                for (int k = 0; k < 10; k++) {
-                                                    if (Globals.events.getCalendarEvents()[d].getYearevents()[i].getMonthevents()[c].getEvents()[k] != null) {
-                                                        int WedID = Globals.events.getCalendarEvents()[d].getYearevents()[i].getMonthevents()[c].getEvents()[k].getWedID();
-                                                        Account acc = Globals.accountArray.findItem(0, Globals.accountArray.getArray().length - 1, WedID);
-                                                        if (acc != null)
-                                                            if (Globals.events.getCalendarEvents()[d].getYearevents()[i].getMonthevents()[c].getEvents()[k].getType().equals("z") || Globals.events.getCalendarEvents()[d].getYearevents()[i].getMonthevents()[c].getEvents()[k].getType().equals("sg") || Globals.events.getCalendarEvents()[d].getYearevents()[i].getMonthevents()[c].getEvents()[k].getType().equals("a"))
-                                                                Globals.events.getCalendarEvents()[d].getYearevents()[i].getMonthevents()[c].getEvents()[k].setName(acc.getGroomN() + " " + acc.getGroomFN() + " " + acc.getGroomFam());
-                                                            else if (Globals.events.getCalendarEvents()[d].getYearevents()[i].getMonthevents()[c].getEvents()[k].getType().equals("sb"))
-                                                                Globals.events.getCalendarEvents()[d].getYearevents()[i].getMonthevents()[c].getEvents()[k].setName(acc.getBrideN() + " " + acc.getBrideFN() + " " + acc.getBrideFam());
-                                                            else if (Globals.events.getCalendarEvents()[d].getYearevents()[i].getMonthevents()[c].getEvents()[k].getType().equals("ss"))
-                                                                Globals.events.getCalendarEvents()[d].getYearevents()[i].getMonthevents()[c].getEvents()[k].setName(acc.getGroomN() + " " + acc.getGroomFam() + " & " + acc.getBrideN() + " " + acc.getBrideFam());
-                                                        //Globals.userEvents[i].setName(brideN + " " + brideFN + " " + brideFam);
-                                                    }
-                                                }
-                                            }
-                                        }
+                                for (int i = 0; i < Globals.students.length; i++) {
+                                    for (int c = i + 1; c < Globals.students.length && c > i; c++) {
+                                        Scores[c][i] = Scores[i][c] = GetScore(Globals.students[i], Globals.students[c]);
                                     }
+
                                 }
-                                */
+
+                                textViewRes.setText("The Scores have been calculated \n");
+
                             }
                         } else {
                             AlertDialog.Builder builder = new AlertDialog.Builder(GetStudents.this);
@@ -130,6 +126,121 @@ public class GetStudents extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(GetStudents.this);
         queue.add(getStudents);
 
+    }
 
+    public float GetScore(Student student1, Student student2) {
+
+        float ScoreSt1 = GetScoreSide(student1, student2);
+        float ScoreSt2 = GetScoreSide(student2, student1);
+        float Score = (ScoreSt1 + ScoreSt2) / 2;
+        return Score;
+    }
+
+    public float GetScoreSide(Student student1, Student student2) {
+        float Portions = 0;
+        float ScoreSt = 0;
+        float[] Criterions = new float[6];//Location-Grade-Workplan-meeting-prefgen-hours
+        if (student1.isLocation_flag())
+            Criterions[0] = 1;
+        else
+            Criterions[0] = 0.5f;
+
+        if (student1.isGPA_flag())
+            Criterions[1] = 1;
+        else
+            Criterions[1] = 0.5f;
+
+        if (student1.getPreferred_work_plan().equals("לא משנה"))
+            Criterions[2] = 0.5f;
+        else
+            Criterions[2] = 1;
+
+        if (student1.getPreferred_meetings().equals("לא משנה"))
+            Criterions[3] = 0.5f;
+        else
+            Criterions[3] = 1;
+
+
+        if (student1.getPreferred_gender().equals("לא משנה"))
+            Criterions[4] = 0.5f;
+        else
+            Criterions[4] = 1;
+
+        if (student1.getPreferred_hours().equals("לא משנה"))
+            Criterions[5] = 0.5f;
+        else
+            Criterions[5] = 1;
+
+        for (int i = 0; i < 6; i++)
+            Portions += Criterions[i];
+        //Calculate ScoreSt1
+        //0
+        if (student1.isLocation_flag())
+            ScoreSt += (GetLocationScore(student1.getLocation(), student2.getLocation()) / 100.0f) * (100 / Portions * Criterions[0]);
+        else
+            ScoreSt += (100 / Portions) * Criterions[0];
+        //1
+        if (student1.isGPA_flag())
+            ScoreSt += (student2.getGPA() / 100.0f) * (100 / Portions * Criterions[1]);
+        else
+            ScoreSt += (100 / Portions) * Criterions[1];
+        //2
+        if (student1.getPreferred_work_plan().equals("לא משנה"))
+            ScoreSt += (100 / Portions) * Criterions[2];
+        else if (student1.getPreferred_work_plan().equals(student2.getPreferred_work_plan()))
+            ScoreSt += (100 / Portions) * Criterions[2];
+        else
+            ScoreSt += 0;
+        //3
+        if (student1.getPreferred_meetings().equals("לא משנה"))
+            ScoreSt += (100 / Portions) * Criterions[3];
+        else if (student1.getPreferred_meetings().equals(student2.getPreferred_meetings()))
+            ScoreSt += (100 / Portions) * Criterions[3];
+        else
+            ScoreSt += 0;
+        //4
+        if (student1.getPreferred_gender().equals("לא משנה"))
+            ScoreSt += (100 / Portions) * Criterions[4];
+        else if (student1.getPreferred_gender().equals(student2.getGender()))
+            ScoreSt += (100 / Portions) * Criterions[4];
+        else
+            ScoreSt += 0;
+
+        //5
+        if (student1.getPreferred_hours().equals("לא משנה"))
+            ScoreSt += (100 / Portions) * Criterions[5];
+        else if (student1.getPreferred_hours().equals(student2.getPreferred_hours()))
+            ScoreSt += (100 / Portions) * Criterions[5];
+        else
+            ScoreSt += 0;
+
+        return ScoreSt;
+    }
+
+    public float GetLocationScore(String Loc1, String Loc2) {
+        int i1=0, i2=0;
+
+        String[] Locs = getResources().getStringArray(R.array.location_array);
+        for (int i = 1; i < Locs.length; i++) {
+            if (Locs[i].equals(Loc1))
+                i1 = i;
+            if (Locs[i].equals(Loc2))
+                i2 = i;
+        }
+
+        float[][] LocationScores = new float[Locs.length][Locs.length];
+        LocationScores[1][1] = 100;
+        LocationScores[2][2] = 100;
+        LocationScores[3][3] = 100;
+        LocationScores[4][4] = 100;
+        LocationScores[1][2] = LocationScores[2][1] = 26;
+        LocationScores[1][3] = LocationScores[3][1] = 67;
+        LocationScores[1][4] = LocationScores[4][1] = 70;
+
+        LocationScores[2][3] = LocationScores[3][2] = 0;
+        LocationScores[2][4] = LocationScores[4][2] = 0;
+
+        LocationScores[4][3] = LocationScores[3][4] = 83;
+        return LocationScores[i1][i2];
     }
 }
