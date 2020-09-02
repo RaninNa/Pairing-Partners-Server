@@ -7,7 +7,7 @@ public class Student {
     String phone;
     String gender;
     int age;
-    int study_year;
+    String study_year;
     int GPA;
     String preferred_gender;
     String preferred_meetings;
@@ -18,7 +18,7 @@ public class Student {
     String course;
     String work_type;
 
-    public Student(String name, String location, String email, String phone, String gender, int age, int study_year, int GPA, String preferred_gender, String preferred_meetings, String preferred_work_type, String preferred_hours, boolean location_flag, boolean GPA_flag, String faculty, String course, String work_type) {
+    public Student(String name, String location, String email, String phone, String gender, int age, String study_year, int GPA, String preferred_gender, String preferred_meetings, String preferred_work_type, String preferred_hours, boolean location_flag, boolean GPA_flag, String faculty, String course, String work_type) {
         this.name = name;
         this.location = location;
         this.email = email;
@@ -86,11 +86,11 @@ public class Student {
         this.age = age;
     }
 
-    public int getStudy_year() {
+    public String getStudy_year() {
         return study_year;
     }
 
-    public void setStudy_year(int study_year) {
+    public void setStudy_year(String study_year) {
         this.study_year = study_year;
     }
 

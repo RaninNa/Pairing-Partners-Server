@@ -1,3 +1,76 @@
 <resources>
     <string name="app_name">Pairing server</string>
+    <string name="studentNum"></string>
+
+
+
+    <string-array name="faculty_array">
+        <item>חוג מדעי מחשב</item>
+        <item>חוג למערכות מידע</item>
+        <item>חוג לפילוסופיה</item>
+        <item>חוג לריפוי בעיסוק</item>
+        <item>חוג למתמטיקה</item>
+        <item>מדעי הרפואה</item>
+    </string-array>
+
+
+    <string-array name="courses_array">
+        <item>מבוא למדעי המחשב</item>
+        <item>מבוא לחמרה</item>
+        <item>מתמטיקה דיסקריטית</item>
+        <item>מבני נתונים</item>
+        <item>תכנון וניתוח אלגוריתמים</item>
+        <item>מודילים חישוביים</item>
+    </string-array>
+
+    <string-array name="type_array">
+        <item>תרגילי בית</item>
+        <item>פרויקט</item>
+        <item>התכוננות למבחן</item>
+    </string-array>
+
+    <string-array name="gender_array">
+        <item>מין</item>
+        <item>זכר</item>
+        <item>נקבה</item>
+    </string-array>
+
+    <string-array name="location_array">
+        <item>מיקום</item>
+        <item>חיפה</item>
+        <item>תל אביב</item>
+        <item>אבו סנאן</item>
+        <item>סכנין</item>
+    </string-array>
+
+    <string-array name="working_way_array">
+        <item>שיטת העבודה המועדפת</item>
+        <item>לחלק את המשימות באופן שווה</item>
+        <item>עבודה ביחד</item>
+        <item>השוואת תוצאות סופיות</item>
+        <item>לא משנה</item>
+    </string-array>
+
+    <string-array name="meetings_array">
+        <item>אופן הפגישות</item>
+        <item>פגישות מכוונות</item>
+        <item>פגישות פיזיות</item>
+        <item>לא משנה</item>
+    </string-array>
+
+    <string-array name="preffered_gender_array">
+        <item>מין מועדף</item>
+        <item>זכר</item>
+        <item>נקבה</item>
+        <item>לא משנה</item>
+    </string-array>
+
+    <string-array name="working_time_array">
+        <item>שעות עבודה</item>
+        <item>בוקר</item>
+        <item>צהוריים</item>
+        <item>ערב</item>
+        <item>לא משנה</item>
+    </string-array>
+
 </resources>
