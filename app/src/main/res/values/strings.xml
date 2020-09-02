@@ -51,12 +51,7 @@
         <item>לא משנה</item>
     </string-array>
 
-    <string-array name="meetings_array">
-        <item>אופן הפגישות</item>
-        <item>פגישות מכוונות</item>
-        <item>פגישות פיזיות</item>
-        <item>לא משנה</item>
-    </string-array>
+
 
     <string-array name="preffered_gender_array">
         <item>מין מועדף</item>
