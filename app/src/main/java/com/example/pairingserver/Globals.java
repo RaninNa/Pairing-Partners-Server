@@ -5,4 +5,5 @@ public class Globals {
     public static String faculty;
     public static String course;
     public static String workType;
+    public static int[][] pairs_scores;
 }

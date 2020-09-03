@@ -15,6 +15,8 @@ import org.json.JSONException;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Arrays;
+
 public class GetStudents extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +24,27 @@ public class GetStudents extends AppCompatActivity {
         setContentView(R.layout.get_students);
 
         final TextView textViewRes = (TextView) findViewById(R.id.TVRes);
+        final TextView pairing_results = (TextView) findViewById(R.id.pairingResults);
         final Button btnMatch = (Button) findViewById(R.id.btnMatch);
+        final int[][] scores_;
         btnMatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // HERE YOU CAN RUN THE ALGORITHM
+                HungarianAlgorithm ha = new HungarianAlgorithm(Globals.pairs_scores);
+                int[][] assignment = ha.findOptimalAssignment();
 
+                String res_string = " ";
+                if (assignment.length > 0) {
+                    // print assignment
+                    for (int i = 0; i < assignment.length; i++) {
+                        res_string +=  Globals.students[assignment[i][0]].getName() + " => " + Globals.students[assignment[i][1]].getName() + "\n";
+                    }
+                } else {
+                    System.out.println("no assignment found!");
+                }
+
+                pairing_results.setText(res_string);
             }
         });
 
@@ -91,16 +108,18 @@ public class GetStudents extends AppCompatActivity {
 
                                 }
                                 //textViewRes.setText("There is " + ArrayStudentsCount + " Students");
-                                float[][] Scores = new float[Globals.students.length][Globals.students.length];
+                                Globals.pairs_scores = new int[Globals.students.length][Globals.students.length];
 
                                 for (int i = 0; i < Globals.students.length; i++) {
                                     for (int c = i + 1; c < Globals.students.length && c > i; c++) {
-                                        Scores[c][i] = Scores[i][c] = GetScore(Globals.students[i], Globals.students[c]);
+                                        Globals.pairs_scores[c][i] = Globals.pairs_scores[i][c] = -GetScore(Globals.students[i], Globals.students[c]);
                                     }
 
                                 }
 
+
                                 textViewRes.setText("The Scores have been calculated \n");
+
 
                             }
                         } else {
@@ -128,17 +147,17 @@ public class GetStudents extends AppCompatActivity {
 
     }
 
-    public float GetScore(Student student1, Student student2) {
+    public int GetScore(Student student1, Student student2) {
 
-        float ScoreSt1 = GetScoreSide(student1, student2);
-        float ScoreSt2 = GetScoreSide(student2, student1);
-        float Score = (ScoreSt1 + ScoreSt2) / 2;
+        int ScoreSt1 = GetScoreSide(student1, student2);
+        int ScoreSt2 = GetScoreSide(student2, student1);
+        int Score = (ScoreSt1 + ScoreSt2) / 2;
         return Score;
     }
 
-    public float GetScoreSide(Student student1, Student student2) {
+    public int GetScoreSide(Student student1, Student student2) {
         float Portions = 0;
-        float ScoreSt = 0;
+        int ScoreSt = 0;
         float[] Criterions = new float[6];//Location-Grade-Workplan-meeting-prefgen-hours
         if (student1.isLocation_flag())
             Criterions[0] = 1;

@@ -20,4 +20,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:text="Match" />
+
+    <TextView
+        android:id="@+id/pairingResults"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnMatch"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="78dp"
+        android:textSize="14sp" />
 </RelativeLayout>
