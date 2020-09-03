@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -41,7 +42,7 @@ public class GetStudents extends AppCompatActivity {
                         res_string +=  Globals.students[assignment[i][0]].getName() + " => " + Globals.students[assignment[i][1]].getName() + "\n";
                     }
                 } else {
-                    System.out.println("no assignment found!");
+                    Toast.makeText(getApplicationContext(), "no assignment found!", Toast.LENGTH_LONG).show();
                 }
 
                 pairing_results.setText(res_string);
@@ -149,15 +150,15 @@ public class GetStudents extends AppCompatActivity {
 
     public int GetScore(Student student1, Student student2) {
 
-        int ScoreSt1 = GetScoreSide(student1, student2);
-        int ScoreSt2 = GetScoreSide(student2, student1);
-        int Score = (ScoreSt1 + ScoreSt2) / 2;
+        float ScoreSt1 = GetScoreSide(student1, student2);
+        float ScoreSt2 = GetScoreSide(student2, student1);
+        int Score = (int) ((ScoreSt1 + ScoreSt2) / 2);
         return Score;
     }
 
-    public int GetScoreSide(Student student1, Student student2) {
+    public float GetScoreSide(Student student1, Student student2) {
         float Portions = 0;
-        int ScoreSt = 0;
+        float ScoreSt = 0;
         float[] Criterions = new float[6];//Location-Grade-Workplan-meeting-prefgen-hours
         if (student1.isLocation_flag())
             Criterions[0] = 1;
