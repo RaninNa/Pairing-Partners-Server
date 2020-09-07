@@ -20,6 +20,7 @@ public class Student {
     String work_type;
 
     public Student(String user_name, String name, String location, String email, String phone, String gender, int age, String study_year, int GPA, String preferred_gender, String preferred_meetings, String preferred_work_plan, String preferred_hours, boolean location_flag, boolean GPA_flag, String faculty, String course, String work_type) {
+        this.user_name = user_name;
         this.name = name;
         this.location = location;
         this.email = email;
