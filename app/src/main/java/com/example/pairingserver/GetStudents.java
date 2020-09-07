@@ -31,7 +31,6 @@ public class GetStudents extends AppCompatActivity {
         btnMatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // HERE YOU CAN RUN THE ALGORITHM
                 HungarianAlgorithm ha = new HungarianAlgorithm(Globals.pairs_scores);
                 int[][] assignment = ha.findOptimalAssignment();
 
@@ -84,6 +83,7 @@ public class GetStudents extends AppCompatActivity {
                             if (!jsonData.toString().equals("[null]")) {
                                 for (int i = 0; i < jsonData.length(); i++) {
                                     int id = jsonData.getJSONObject(i).getInt("id");
+                                    String user_name = jsonData.getJSONObject(i).getString("user_name");
                                     String Name = jsonData.getJSONObject(i).getString("Name");
                                     String Gender = jsonData.getJSONObject(i).getString("Gender");
                                     String Location = jsonData.getJSONObject(i).getString("Location");
@@ -102,7 +102,7 @@ public class GetStudents extends AppCompatActivity {
                                     //String Type = jsonData.getJSONObject(i).getString("Type");
 
 
-                                    Student student = new Student(Name, Location, Email, Phone, Gender, Age, Year, GradeAverage, PrefGen, Meeting, WorkPlan, WorkHours, ILocation, IGrade,
+                                    Student student = new Student(user_name, Name, Location, Email, Phone, Gender, Age, Year, GradeAverage, PrefGen, Meeting, WorkPlan, WorkHours, ILocation, IGrade,
                                             Globals.faculty, Globals.course, Globals.workType);
                                     Globals.students[i] = student;
 
