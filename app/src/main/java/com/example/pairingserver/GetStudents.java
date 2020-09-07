@@ -7,11 +7,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.android.volley.Response;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,11 +37,62 @@ public class GetStudents extends AppCompatActivity {
                 int[][] assignment = ha.findOptimalAssignment();
 
                 String res_string = " ";
+                JSONArray jsonArray = new JSONArray();
                 if (assignment.length > 0) {
                     // print assignment
                     for (int i = 0; i < assignment.length; i++) {
                         res_string +=  Globals.students[assignment[i][0]].getName() + " => " + Globals.students[assignment[i][1]].getName() + "\n";
+                        JSONObject jsonObj = new JSONObject();
+                        try {
+                            jsonObj.put("user_name",Globals.students[assignment[i][0]].getUser_name());
+                            jsonObj.put("course",Globals.students[assignment[i][0]].getCourse());
+                            jsonObj.put("nameOfPair",Globals.students[assignment[i][1]].getName());
+                            jsonObj.put("emailOfPair",Globals.students[assignment[i][1]].getEmail());
+                            jsonObj.put("phoneOfPair",Globals.students[assignment[i][1]].getPhone());
+
+                            jsonArray.put(jsonObj);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                boolean success = jsonResponse.getBoolean("success");
+                                String id = jsonResponse.getString("id");
+                                if (success) {
+                                    Toast.makeText(getApplicationContext(), "שליחה התבצעה", Toast.LENGTH_LONG).show();
+                                    //Intent intent = new Intent();
+                                    //getActivity().startActivity(intent);
+                                    //Intent intent = new Intent(AuthenticateUser.this, RegisterEventActivity.class);
+                                    //AuthenticateUser.this.startActivity(intent);
+
+                                    try {
+                                        //if (AuthenticateUser.this != null)
+                                        //hideSoftKeyboard(AuthenticateUser.this);
+                                    } catch (Exception e) {
+
+                                    }
+
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "שליחה נכשלה", Toast.LENGTH_LONG).show();
+
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+
+
+                    UpdatePairsReq registerRequest = new UpdatePairsReq(jsonArray, "id14702484_clients", "id14702484_pairingapp", "Pairing2020YR!", responseListener);
+                    RequestQueue queue = Volley.newRequestQueue(GetStudents.this);
+                    queue.add(registerRequest);
+
+
+
                 } else {
                     Toast.makeText(getApplicationContext(), "no assignment found!", Toast.LENGTH_LONG).show();
                 }
