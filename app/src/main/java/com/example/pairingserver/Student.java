@@ -1,6 +1,7 @@
 package com.example.pairingserver;
 
 public class Student {
+    String user_name;
     String name;
     String location;
     String email;
@@ -18,7 +19,7 @@ public class Student {
     String course;
     String work_type;
 
-    public Student(String name, String location, String email, String phone, String gender, int age, String study_year, int GPA, String preferred_gender, String preferred_meetings, String preferred_work_plan, String preferred_hours, boolean location_flag, boolean GPA_flag, String faculty, String course, String work_type) {
+    public Student(String user_name, String name, String location, String email, String phone, String gender, int age, String study_year, int GPA, String preferred_gender, String preferred_meetings, String preferred_work_plan, String preferred_hours, boolean location_flag, boolean GPA_flag, String faculty, String course, String work_type) {
         this.name = name;
         this.location = location;
         this.email = email;
@@ -37,6 +38,15 @@ public class Student {
         this.course = course;
         this.work_type = work_type;
     }
+
+    public String getUser_name() {
+        return this.user_name;
+    }
+
+    public void setUser_name(final String user_name) {
+        this.user_name = user_name;
+    }
+
 
     public String getName() {
         return name;
