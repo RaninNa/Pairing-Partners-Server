@@ -38,24 +38,40 @@ public class GetStudents extends AppCompatActivity {
             public void onClick(View view) {
                 HungarianAlgorithm ha = new HungarianAlgorithm(Globals.pairs_scores);
                 int[][] assignment = ha.findOptimalAssignment();
+                String AllStudents = "@";
+                for (int i = 0; i < assignment.length; i++) {
+                    AllStudents += Globals.students[assignment[i][0]].getUser_name() + "@";
+                }
 
                 String res_string = " ";
                 JSONArray jsonArray = new JSONArray();
                 if (assignment.length > 0) {
                     // print assignment
                     for (int i = 0; i < assignment.length; i++) {
-                        res_string +=  Globals.students[assignment[i][0]].getName() + " => " + Globals.students[assignment[i][1]].getName() + "\n";
-                        JSONObject jsonObj = new JSONObject();
-                        try {
-                            jsonObj.put("user_name",Globals.students[assignment[i][0]].getUser_name());
-                            jsonObj.put("course",Globals.students[assignment[i][0]].getCourse());
-                            jsonObj.put("nameOfPair",Globals.students[assignment[i][1]].getName());
-                            jsonObj.put("emailOfPair",Globals.students[assignment[i][1]].getEmail());
-                            jsonObj.put("phoneOfPair",Globals.students[assignment[i][1]].getPhone());
+                        if (AllStudents.contains("@" + Globals.students[assignment[i][0]].getUser_name() + "@")) {
+                            res_string += Globals.students[assignment[i][0]].getName() + " <=> " + Globals.students[assignment[i][1]].getName() + "\n";
+                            JSONObject jsonObj = new JSONObject();
+                            try {
+                                jsonObj.put("user_name", Globals.students[assignment[i][0]].getUser_name());
+                                jsonObj.put("name", Globals.students[assignment[i][0]].getName());
+                                jsonObj.put("email", Globals.students[assignment[i][0]].getEmail());
+                                jsonObj.put("phone", Globals.students[assignment[i][0]].getPhone());
+                                jsonObj.put("agreed1", 0);
+                                jsonObj.put("faculty", Globals.students[assignment[i][0]].getFaculty());
+                                jsonObj.put("course", Globals.students[assignment[i][0]].getCourse());
+                                jsonObj.put("workType", Globals.students[assignment[i][0]].getWork_type());
+                                jsonObj.put("pairUserName", Globals.students[assignment[i][1]].getUser_name());
+                                jsonObj.put("nameOfPair", Globals.students[assignment[i][1]].getName());
+                                jsonObj.put("emailOfPair", Globals.students[assignment[i][1]].getEmail());
+                                jsonObj.put("phoneOfPair", Globals.students[assignment[i][1]].getPhone());
+                                jsonObj.put("agreed2", 0);
+                                jsonArray.put(jsonObj);
+                                AllStudents = AllStudents.replace("@" + Globals.students[assignment[i][0]].getUser_name() + "@", "@");
+                                AllStudents = AllStudents.replace("@" + Globals.students[assignment[i][1]].getUser_name() + "@", "@");
 
-                            jsonArray.put(jsonObj);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                     Response.Listener<String> responseListener = new Response.Listener<String>() {
