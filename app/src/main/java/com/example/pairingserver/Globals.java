@@ -6,4 +6,6 @@ public class Globals {
     public static String course;
     public static String workType;
     public static int[][] pairs_scores;
+    public static int MatchType;
+    public static DataStructure[] GlobalData;
 }
