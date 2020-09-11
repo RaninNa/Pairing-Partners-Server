@@ -223,48 +223,54 @@ public class GetAllStudents extends AppCompatActivity {
 
                                 for (int d = 0; d < Globals.GlobalData.length; d++) {
 
-                                    Globals.students= Globals.GlobalData[d].getStudents();
-                                    if (Globals.students.length % 2 == 1) {
-                                        double MinScore = 100 * Globals.students.length;
-                                        int index = -1;
-                                        Globals.pairs_scores = new int[Globals.students.length][Globals.students.length];
-                                        for (int i = 0; i < Globals.students.length; i++) {
-                                            for (int c = i + 1; c < Globals.students.length && c > i; c++) {
-                                                Globals.pairs_scores[c][i] = Globals.pairs_scores[i][c] = Helpers.GetScore(Globals.students[i], Globals.students[c]);
-                                            }
-                                        }
-                                        for (int i = 0; i < Globals.students.length; i++) {
-                                            int sum = 0;
-                                            for (int c = 0; c < Globals.students.length; c++) {
-                                                sum += Globals.pairs_scores[c][i];
-                                            }
-                                            if (sum <= MinScore) {
-                                                MinScore = sum;
-                                                index = i;
-                                            }
-                                        }
-                                        Helpers.RemoveRowColScores(index);
-                                        Helpers.RemoveRowColStudents(index);
-                                        for (int i = 0; i < Globals.students.length; i++) {
-                                            for (int c = i + 1; c < Globals.students.length && c > i; c++) {
-                                                Globals.pairs_scores[c][i] = Globals.pairs_scores[i][c] *= -1;
-                                            }
-                                        }
-                                        Globals.GlobalData[d].setStudents(Globals.students);
-                                        Globals.GlobalData[d].setScores(Globals.pairs_scores);
-
-                                    } else {
-                                        if (Globals.GlobalData[d] != null) {
-                                            int[][] Score = new int[Globals.GlobalData[d].getStudents().length][Globals.GlobalData[d].getStudents().length];
-                                            for (int i = 0; i < Globals.GlobalData[d].getStudents().length; i++) {
-                                                for (int c = i + 1; c < Globals.GlobalData[d].getStudents().length && c > i; c++) {
-                                                    Score[c][i] = Score[i][c] = -Helpers.GetScore(Globals.GlobalData[d].getStudents()[i], Globals.GlobalData[d].getStudents()[c]);
+                                    if(Globals.GlobalData[d]!=null)
+                                    {
+                                        Globals.students= Globals.GlobalData[d].getStudents();
+                                        if (Globals.students.length % 2 == 1) {
+                                            double MinScore = 100 * Globals.students.length;
+                                            int index = -1;
+                                            Globals.pairs_scores = new int[Globals.students.length][Globals.students.length];
+                                            for (int i = 0; i < Globals.students.length; i++) {
+                                                for (int c = i + 1; c < Globals.students.length && c > i; c++) {
+                                                    Globals.pairs_scores[c][i] = Globals.pairs_scores[i][c] = Helpers.GetScore(Globals.students[i], Globals.students[c]);
                                                 }
                                             }
-                                            Globals.GlobalData[d].setScores(Score);
+                                            for (int i = 0; i < Globals.students.length; i++) {
+                                                int sum = 0;
+                                                for (int c = 0; c < Globals.students.length; c++) {
+                                                    sum += Globals.pairs_scores[c][i];
+                                                }
+                                                if (sum <= MinScore) {
+                                                    MinScore = sum;
+                                                    index = i;
+                                                }
+                                            }
+                                            Helpers.RemoveRowColScores(index);
+                                            Helpers.RemoveRowColStudents(index);
+                                            for (int i = 0; i < Globals.students.length; i++) {
+                                                for (int c = i + 1; c < Globals.students.length && c > i; c++) {
+                                                    Globals.pairs_scores[c][i] = Globals.pairs_scores[i][c] *= -1;
+                                                }
+                                            }
+                                            Globals.GlobalData[d].setStudents(Globals.students);
+                                            Globals.GlobalData[d].setScores(Globals.pairs_scores);
+
+                                        } else {
+                                            if (Globals.GlobalData[d] != null) {
+                                                int[][] Score = new int[Globals.GlobalData[d].getStudents().length][Globals.GlobalData[d].getStudents().length];
+                                                for (int i = 0; i < Globals.GlobalData[d].getStudents().length; i++) {
+                                                    for (int c = i + 1; c < Globals.GlobalData[d].getStudents().length && c > i; c++) {
+                                                        Score[c][i] = Score[i][c] = -Helpers.GetScore(Globals.GlobalData[d].getStudents()[i], Globals.GlobalData[d].getStudents()[c]);
+                                                    }
+                                                }
+                                                Globals.GlobalData[d].setScores(Score);
+                                            }
+
                                         }
 
+
                                     }
+
                                 }
 
 
