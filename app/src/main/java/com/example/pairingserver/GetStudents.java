@@ -151,7 +151,7 @@ public class GetStudents extends AppCompatActivity {
 
 
                             //Globals.ArrayEvents = new Event[ArrayEventsCount];
-                            int index = 0;
+
                             if (!jsonData.toString().equals("[null]")) {
                                 for (int i = 0; i < jsonData.length(); i++) {
                                     int id = jsonData.getJSONObject(i).getInt("id");
@@ -181,14 +181,46 @@ public class GetStudents extends AppCompatActivity {
 
                                 }
                                 //textViewRes.setText("There is " + ArrayStudentsCount + " Students");
-                                Globals.pairs_scores = new int[Globals.students.length][Globals.students.length];
-
-                                for (int i = 0; i < Globals.students.length; i++) {
-                                    for (int c = i + 1; c < Globals.students.length && c > i; c++) {
-                                        Globals.pairs_scores[c][i] = Globals.pairs_scores[i][c] = -Helpers.GetScore(Globals.students[i], Globals.students[c]);
+                                if (Globals.students.length % 2 == 1) {
+                                    double MinScore = 100*Globals.students.length;
+                                    int index = -1;
+                                    Globals.pairs_scores = new int[Globals.students.length][Globals.students.length];
+                                    for (int i = 0; i < Globals.students.length; i++) {
+                                        for (int c = i + 1; c < Globals.students.length && c > i; c++) {
+                                            Globals.pairs_scores[c][i] = Globals.pairs_scores[i][c] = Helpers.GetScore(Globals.students[i], Globals.students[c]);
+                                        }
+                                    }
+                                    for (int i = 0; i < Globals.students.length; i++) {
+                                        int sum = 0;
+                                        for (int c = 0; c < Globals.students.length; c++) {
+                                            sum += Globals.pairs_scores[c][i];
+                                        }
+                                        if (sum <= MinScore) {
+                                            MinScore = sum;
+                                            index = i;
+                                        }
+                                    }
+                                    Helpers.RemoveRowColScores(index);
+                                    Helpers.RemoveRowColStudents(index);
+                                    for (int i = 0; i < Globals.students.length; i++) {
+                                        for (int c = i + 1; c < Globals.students.length && c > i; c++) {
+                                            Globals.pairs_scores[c][i] = Globals.pairs_scores[i][c] *= -1;
+                                        }
                                     }
 
                                 }
+                                else
+                                {
+                                    Globals.pairs_scores = new int[Globals.students.length][Globals.students.length];
+
+                                    for (int i = 0; i < Globals.students.length; i++) {
+                                        for (int c = i + 1; c < Globals.students.length && c > i; c++) {
+                                            Globals.pairs_scores[c][i] = Globals.pairs_scores[i][c] = -Helpers.GetScore(Globals.students[i], Globals.students[c]);
+                                        }
+
+                                    }
+                                }
+
 
 
                                 textViewRes.setText("The Scores have been calculated \n");
@@ -219,5 +251,6 @@ public class GetStudents extends AppCompatActivity {
         queue.add(getStudents);
 
     }
+
 
 }

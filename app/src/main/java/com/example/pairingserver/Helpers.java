@@ -236,4 +236,51 @@ public class Helpers {
                 */
 
     }
+
+
+    public static void RemoveRowColScores(int n)
+    {
+        int sourcearr[][] = Globals.pairs_scores;
+        int destinationarr[][] = new int[Globals.pairs_scores.length-1][Globals.pairs_scores.length-1];
+
+        int REMOVE_ROW = n;
+        int REMOVE_COLUMN = n;
+        int p = 0;
+        for( int i = 0; i < Globals.pairs_scores.length; ++i)
+        {
+            if ( i == REMOVE_ROW)
+                continue;
+
+
+            int q = 0;
+            for( int j = 0; j < Globals.pairs_scores.length; ++j)
+            {
+                if ( j == REMOVE_COLUMN)
+                    continue;
+
+                destinationarr[p][q] = sourcearr[i][j];
+                ++q;
+            }
+            ++p;
+        }
+        Globals.pairs_scores = destinationarr;
+    }
+
+    public static void RemoveRowColStudents(int n)
+    {
+        Student sourcearr[] = Globals.students;
+        Student destinationarr[] = new Student[Globals.students.length-1];
+
+        int REMOVE_ROW = n;
+        int p = 0;
+        for( int i = 0; i < Globals.students.length; ++i)
+        {
+            if ( i == REMOVE_ROW)
+                continue;
+            destinationarr[p] = sourcearr[i];
+            p++;
+        }
+        Globals.students = destinationarr;
+    }
+
 }
