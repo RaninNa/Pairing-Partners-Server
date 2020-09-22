@@ -110,20 +110,20 @@ public class Helpers {
             int st2days = S2Days.length;
             int st1hours = S1Hours.length;
             int st2hours = S2Hours.length;
-            int countCommonDays = 0;
+            double countCommonDays = 0;
             for (int i = 0; i < st1days; i++) {
                 if (Student2Days.contains(S1Days[i])) {
                     countCommonDays++;
                 }
             }
-            int totalDays = st1days + st2days - countCommonDays; // תורת הקבוצות :)
-            int countCommonHours = 0;
+            double totalDays = st1days + st2days - countCommonDays; // תורת הקבוצות :)
+            double countCommonHours = 0;
             for (int i = 0; i < st1hours; i++) {
                 if (Student2Hours.contains(S1Hours[i])) {
                     countCommonHours++;
                 }
             }
-            int totalHours = st1hours + st2hours - countCommonHours;
+            double totalHours = st1hours + st2hours - countCommonHours;
             double scoreDays = 0;
             if (countCommonDays > 3)
                 scoreDays = 1;
@@ -138,7 +138,7 @@ public class Helpers {
                 scoreHours = countCommonHours / totalHours;
             double TotalScore = scoreDays * scoreHours;
 
-            return TotalScore;
+            return TotalScore*100;
 
         } catch (Exception ex) {
             return 10;

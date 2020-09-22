@@ -1,9 +1,16 @@
 package com.example.pairingserver;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,8 +24,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -29,7 +38,7 @@ public class GetAllStudents extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.get_students);
-
+        FixLayoutAspects();
         final TextView textViewRes = (TextView) findViewById(R.id.TVRes);
         final TextView pairing_results = (TextView) findViewById(R.id.pairingResults);
         final Button btnMatch = (Button) findViewById(R.id.btnMatch);
@@ -180,44 +189,79 @@ public class GetAllStudents extends AppCompatActivity {
 
                                 }
                                 //textViewRes.setText("There is " + ArrayStudentsCount + " Students");
-                                Globals.GlobalData = new DataStructure[18];
-                                String faculty = "מבוא למדעי המחשב";
-                                String[] courses = {"מבוא למדעי המחשב", "מבוא לחמרה", "מתמטיקה דיסקריטית", "מבני נתונים", "תכנון וניתוח אלגוריתמים", "מודילים חישוביים"};
+                                Globals.GlobalData = new DataStructure[15*2];
+                                String[] faculty = {"חוג מדעי מחשב","חוג למתמטיקה"};
+                                String[] courses = {"מבוא למדעי המחשב", "מבוא לחמרה", "מבני נתונים", "תכנון וניתוח אלגוריתמים", "מודילים חישוביים"};
+                                String[] coursesmath = {"חדוא 1", "חדוא 2", "אלגברה לינארית א", "אלגברה ב", "מתמטיקה דיסקריטית"};
                                 String[] worktype = {"תרגילי בית", "פרויקט", "התכוננות למבחן"};
-                                int[] lengths = new int[18];
-                                for (int i = 0; i < Globals.students.length; i++) {
-                                    for (int c = 0; c < courses.length; c++) {
-                                        if (Globals.students[i].getCourse().equals(courses[c])) {
-                                            for (int d = 0; d < worktype.length; d++) {
-                                                if (Globals.students[i].getWork_type().equals(worktype[d])) {
-                                                    lengths[c * 3 + d]++;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                                for (int i = 0; i < 6; i++) {
-                                    for (int c = 0; c < 3; c++) {
-                                        if (lengths[i * 3 + c] > 0)
-                                        {
-                                            Globals.GlobalData[i * 3 + c] = new DataStructure(null, faculty, courses[i], worktype[c]);
-                                            Globals.GlobalData[i * 3 + c].setStudents(new Student[lengths[i * 3 + c]]);
-                                        }
-                                    }
-                                }
-                                for (int i = 0; i < Globals.students.length; i++) {
-                                    for (int c = 0; c < courses.length; c++) {
-                                        if (Globals.students[i].getCourse().equals(courses[c])) {
-                                            for (int d = 0; d < worktype.length; d++) {
-                                                if (Globals.students[i].getWork_type().equals(worktype[d])) {
-                                                    Globals.GlobalData[c * 3 + d].AddStudent(Globals.students[i]);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                                int[] lengths = new int[15*2];
 
+                                for (int j = 0; j < 2; j++) {
+                                    for (int i = 0; i < Globals.students.length; i++) {
+                                        if(j==0) {
+                                            for (int c = 0; c < courses.length; c++) {
+                                                if (Globals.students[i].getCourse().equals(courses[c])) {
+                                                    for (int d = 0; d < worktype.length; d++) {
+                                                        if (Globals.students[i].getWork_type().equals(worktype[d])) {
+                                                            lengths[c * 3 + d]++;
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            for (int c = 0; c < coursesmath.length; c++) {
+                                                if (Globals.students[i].getCourse().equals(coursesmath[c])) {
+                                                    for (int d = 0; d < worktype.length; d++) {
+                                                        if (Globals.students[i].getWork_type().equals(worktype[d])) {
+                                                            lengths[15 + c * 3 + d]++;
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                for (int j = 0; j < 2; j++) {
+                                    for (int i = 0; i < 5; i++) {
+                                        for (int c = 0; c < 3; c++) {
+                                            if (lengths[j * 15 + i * 3 + c] > 0) {
+                                                Globals.GlobalData[j * 15 + i * 3 + c] = new DataStructure(null, faculty[0], courses[i], worktype[c]);
+                                                Globals.GlobalData[j * 15 + i * 3 + c].setStudents(new Student[lengths[j * 15 + i * 3 + c]]);
+                                            }
+                                        }
+                                    }
+                                }
+                                for (int j = 0; j < 2; j++) {
+                                    for (int i = 0; i < Globals.students.length; i++) {
+                                        if(j==0) {
+                                            for (int c = 0; c < courses.length; c++) {
+                                                if (Globals.students[i].getCourse().equals(courses[c])) {
+                                                    for (int d = 0; d < worktype.length; d++) {
+                                                        if (Globals.students[i].getWork_type().equals(worktype[d])) {
+                                                            Globals.GlobalData[c * 3 + d].AddStudent(Globals.students[i]);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            for (int c = 0; c < coursesmath.length; c++) {
+                                                if (Globals.students[i].getCourse().equals(coursesmath[c])) {
+                                                    for (int d = 0; d < worktype.length; d++) {
+                                                        if (Globals.students[i].getWork_type().equals(worktype[d])) {
+                                                            Globals.GlobalData[15 + c * 3 + d].AddStudent(Globals.students[i]);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
 
 
 
@@ -278,8 +322,8 @@ public class GetAllStudents extends AppCompatActivity {
 
 
 
-                                textViewRes.setText("The Scores have been calculated \n");
-
+                                textViewRes.setText("הנתונים מוכנים! \n");
+                                btnMatch.setEnabled(true);
 
                             }
                         } else {
@@ -307,5 +351,146 @@ public class GetAllStudents extends AppCompatActivity {
 
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    void FixLayoutAspects()
+    {
+
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.RLGet);
+        int childCount = rl.getChildCount();
+
+        ViewGroup.LayoutParams LPR = (ViewGroup.LayoutParams) rl.getLayoutParams();
+
+
+        if(LPR.width>0)
+            LPR.width = (int) (LPR.width * Globals.scaleDP);
+        if(LPR.height>0)
+            LPR.height = (int) (LPR.height * Globals.scaleDP);
+        rl.setLayoutParams(LPR);
+        for (int i = 0; i < childCount; i++) {
+            View view = rl.getChildAt(i);
+            //RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams((int) (view.getLayoutParams().width * Globals.scaleDP),
+            //        (int) (view.getLayoutParams().height * Globals.scaleDP));
+            RelativeLayout.LayoutParams LP = (RelativeLayout.LayoutParams) view.getLayoutParams();
+            //layoutParams.setMargins((int) (LP.leftMargin * Globals.scaleDP), (int) (LP.topMargin * Globals.scaleDP),
+            //        (int) (LP.rightMargin * Globals.scaleDP), (int) (LP.bottomMargin * Globals.scaleDP));
+            RelativeLayout.LayoutParams NewLP = new RelativeLayout.LayoutParams(LP);
+            int[] rules = LP.getRules();
+            for (int verb = 0; verb < rules.length; verb++) {
+                int subject = rules[verb];
+                NewLP.addRule(verb, subject);
+            }
+            NewLP.setMargins((int) (LP.leftMargin * Globals.scaleDP), (int) (LP.topMargin * Globals.scaleDP),
+                    (int) (LP.rightMargin * Globals.scaleDP), (int) (LP.bottomMargin * Globals.scaleDP));
+            if (NewLP.height > 0 )
+                NewLP.height = (int) (LP.height * Globals.scaleDP);
+            if(NewLP.width > 0)
+                NewLP.width = (int) (LP.width * Globals.scaleDP);
+
+            if (view instanceof Button) {
+                Button button = (Button) view;
+                float size = button.getTextSize();
+                button.setTextSize((button.getTextSize() * Globals.scaleDP * Globals.scaleS) / Globals.DP);
+            }
+            else if (view instanceof TextView) {
+                TextView textView = (TextView) view;
+                float size = textView.getTextSize();
+                textView.setTextSize((textView.getTextSize() * Globals.scaleDP * Globals.scaleS) / Globals.DP);
+            }  else if (view instanceof EditText) {
+                EditText editText = (EditText) view;
+                float size = editText.getTextSize();
+                editText.setTextSize((editText.getTextSize() * Globals.scaleDP * Globals.scaleS) / Globals.DP);
+            } else if (view instanceof ImageView) {
+                ImageView imageView = (ImageView) view;
+                float height = imageView.getHeight();
+                float width = imageView.getWidth();
+                //view.setLayoutParams(NewLP);
+
+                //imageView.setTextSize((imageView.getTextSize() * Globals.scaleDP)/ Globals.DP);
+            } else if (view instanceof Spinner) {
+                Spinner spinner = (Spinner) view;
+                if(Globals.ActualWidth / (float)(Globals.ActualHeight) > 9.0f /16.0f)
+                    NewLP.topMargin = (int)(((NewLP.topMargin / Globals.DP)-15)*Globals.DP) ;
+                //view.setLayoutParams(NewLP);
+            }
+            else if (view instanceof CardView)
+            {
+                if(Globals.Ratio >17f / 9f ) {
+                    NewLP.height = (int) (NewLP.height * 1.1f);
+                }
+            }
+            view.setLayoutParams(NewLP);
+
+            //view.setX(location[0]);
+            //view.setY(location[1]);
+
+            // Do something with v.
+            // …
+
+
+        }
+
+
+        CardView c1 = (CardView) findViewById(R.id.CardViewGetStudents);
+
+
+        childCount = c1.getChildCount();
+
+        for (int i = 0; i < childCount; i++) {
+            View view = c1.getChildAt(i);
+            //RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams((int) (view.getLayoutParams().width * Globals.scaleDP),
+            //        (int) (view.getLayoutParams().height * Globals.scaleDP));
+            FrameLayout.LayoutParams LP = (FrameLayout.LayoutParams) view.getLayoutParams();
+            //layoutParams.setMargins((int) (LP.leftMargin * Globals.scaleDP), (int) (LP.topMargin * Globals.scaleDP),
+            //        (int) (LP.rightMargin * Globals.scaleDP), (int) (LP.bottomMargin * Globals.scaleDP));
+            FrameLayout.LayoutParams NewLP = new FrameLayout.LayoutParams(LP);
+            NewLP.gravity=LP.gravity;
+            NewLP.topMargin=LP.topMargin;
+            NewLP.leftMargin=LP.leftMargin;
+            NewLP.bottomMargin=LP.bottomMargin;
+            NewLP.rightMargin=LP.rightMargin;
+
+
+
+            NewLP.setMargins((int) (LP.leftMargin * Globals.scaleDP), (int) (LP.topMargin * Globals.scaleDP),
+                    (int) (LP.rightMargin * Globals.scaleDP), (int) (LP.bottomMargin * Globals.scaleDP));
+
+            if (NewLP.height > 0)
+                NewLP.height = (int) (LP.height * Globals.scaleDP);
+            if (NewLP.width > 0)
+                NewLP.width = (int) (LP.width * Globals.scaleDP);
+            if (view instanceof TextView) {
+                TextView textView = (TextView) view;
+                float size = textView.getTextSize();
+                textView.setTextSize((textView.getTextSize() * Globals.scaleDP * Globals.scaleS) / Globals.DP);
+            } else if (view instanceof Button) {
+                Button button = (Button) view;
+                float size = button.getTextSize();
+                button.setTextSize((button.getTextSize() * Globals.scaleDP * Globals.scaleS) / Globals.DP);
+            } else if (view instanceof EditText) {
+                EditText editText = (EditText) view;
+                float size = editText.getTextSize();
+                editText.setTextSize((editText.getTextSize() * Globals.scaleDP * Globals.scaleS) / Globals.DP);
+            } else if (view instanceof ImageView) {
+                ImageView imageView = (ImageView) view;
+                float height = imageView.getHeight();
+                float width = imageView.getWidth();
+
+                //imageView.setTextSize((imageView.getTextSize() * Globals.scaleDP)/ Globals.DP);
+            } else if (view instanceof Spinner) {
+                Spinner spinner = (Spinner) view;
+
+            }
+            else if (view instanceof CardView)
+            {
+                if(Globals.Ratio >17f / 9f ) {
+                    NewLP.height = (int) (NewLP.height * 1.1f);
+                }
+            }
+            view.setLayoutParams(NewLP);
+
+
+        }
+    }
 
 }

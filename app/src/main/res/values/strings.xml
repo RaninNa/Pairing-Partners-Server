@@ -1,26 +1,31 @@
 <resources>
     <string name="app_name">Pairing server</string>
-    <string name="studentNum"></string>
+    <string name="studentNum">תמתין עד שהנתונים תעובד...</string>
 
 
 
     <string-array name="faculty_array">
         <item>חוג מדעי מחשב</item>
-        <item>חוג למערכות מידע</item>
-        <item>חוג לפילוסופיה</item>
-        <item>חוג לריפוי בעיסוק</item>
         <item>חוג למתמטיקה</item>
-        <item>מדעי הרפואה</item>
+
     </string-array>
 
 
-    <string-array name="courses_array">
+    <string-array name="cs_courses_array">
         <item>מבוא למדעי המחשב</item>
         <item>מבוא לחמרה</item>
         <item>מתמטיקה דיסקריטית</item>
         <item>מבני נתונים</item>
         <item>תכנון וניתוח אלגוריתמים</item>
         <item>מודילים חישוביים</item>
+    </string-array>
+
+    <string-array name="math_courses_array">
+        <item>חדוא 1</item>
+        <item>חדוא 2</item>
+        <item>אלגברה לינארית א</item>
+        <item>אלגברה ב</item>
+        <item>מתמטיקה דיסקריטית</item>
     </string-array>
 
     <string-array name="type_array">

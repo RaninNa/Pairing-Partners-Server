@@ -1,30 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/color_gradient"
+    android:id="@+id/RLMainActivity"
     tools:context=".MainActivity">
 
 
-
-    <Button
-        android:id="@+id/btnGlobalMatching"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:id="@+id/RLCardView"
+        android:layout_width="match_parent"
+        android:layout_height="440dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
-        android:text="שידוך גלובלי" />
+        android:layout_marginTop="210dp"
+        android:background="@color/White">
 
-    <Button
-        android:id="@+id/btnSpecificMatching"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnGlobalMatching"
+    </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/CardViewMain"
+        android:layout_width="332.5dp"
+        android:layout_height="364dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="שידוך ספציפי" />
+        android:layout_marginTop="75dp"
+        app:cardBackgroundColor="@color/White"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="7dp">
 
+
+        <Button
+            android:id="@+id/btnGlobalMatching"
+            android:layout_width="257dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/drawable_button_empty"
+            android:textColor="@color/BorderColor"
+            android:fontFamily="@font/newfont"
+            android:paddingBottom="4dp"
+            android:textSize="28dp"
+            android:text="שידוך גלובלי" />
+
+        <Button
+            android:id="@+id/btnSpecificMatching"
+            android:layout_width="257dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/drawable_button_empty"
+            android:fontFamily="@font/newfont"
+            android:text="שידוך ספציפי"
+            android:paddingBottom="4dp"
+            android:textSize="28dp"
+            android:textColor="@color/BorderColor" />
+
+        <ImageView
+            android:id="@+id/imageViewLogo"
+            android:layout_width="173.1dp"
+            android:layout_height="91.7dp"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/findpairlogomatch" />
+
+    </androidx.cardview.widget.CardView>
 
 
 </RelativeLayout>

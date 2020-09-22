@@ -3,55 +3,94 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/RLSpecific"
+    android:background="@drawable/color_gradient"
     android:layout_height="match_parent"
     tools:context=".ActivitySpecificStudents">
 
-    <Spinner
-        android:id="@+id/spinnerFaculty"
-        android:layout_width="340dp"
-        android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        android:gravity="center"
-        android:paddingBottom="10dp"
-        android:textAlignment="center"
-        android:textSize="20dp" />
 
-    <Spinner
-        android:id="@+id/spinnerCourses"
-        android:layout_width="340dp"
-        android:layout_height="50dp"
+    <RelativeLayout
+        android:id="@+id/RLCardView"
+        android:layout_width="match_parent"
+        android:layout_height="440dp"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_below="@id/spinnerFaculty"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:paddingBottom="10dp"
-        android:textAlignment="center"
-        android:textSize="20dp" />
+        android:layout_marginTop="210dp"
+        android:background="@color/White">
+    </RelativeLayout>
 
-    <Spinner
-        android:id="@+id/spinnerType"
-        android:layout_width="340dp"
-        android:layout_height="50dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/CardViewSpecific"
+        android:layout_width="332.5dp"
+        android:layout_height="502dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/spinnerCourses"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:paddingBottom="10dp"
-        android:textAlignment="center"
-        android:textSize="20dp" />
+        android:layout_marginTop="75dp"
+        app:cardBackgroundColor="@color/White"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="7dp">
 
-    <Button
-        android:id="@+id/btnCont"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/spinnerType"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="המשך" />
+
+        <ImageView
+            android:id="@+id/imageViewLogo2"
+            android:layout_width="173.1dp"
+            android:layout_height="91.7dp"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="45dp"
+            android:background="@drawable/findpairlogomatch" />
+
+        <Spinner
+            android:id="@+id/spinnerFaculty"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="-30dp"
+            android:background="@drawable/drawable_edittext"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:textAlignment="center"
+            android:textSize="20dp" />
+
+        <Spinner
+            android:id="@+id/spinnerCourses"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/drawable_edittext"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:textAlignment="center"
+            android:textSize="20dp" />
+
+        <Spinner
+            android:id="@+id/spinnerType"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="110dp"
+            android:background="@drawable/drawable_edittext"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:textAlignment="center"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/btnCont"
+            android:layout_width="193dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/spinnerType"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:fontFamily="@font/newfont"
+            android:layout_marginTop="180dp"
+            android:textSize="29dp"
+            android:paddingBottom="4dp"
+            android:background="@drawable/drawable_button"
+            android:text="המשך" />
+
+
+    </androidx.cardview.widget.CardView>
 
 
 </RelativeLayout>
