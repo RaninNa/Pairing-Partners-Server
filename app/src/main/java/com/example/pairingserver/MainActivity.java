@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
 
-        CheckGlobalPairsReq checkGlobalPairsReq = new CheckGlobalPairsReq("id14702484_clients", "id14702484_pairingapp", "Pairing2020YR!", responseListener);
+        CheckGlobalPairsReq checkGlobalPairsReq = new CheckGlobalPairsReq("u747931869_FindPair", "u747931869_yuosifhanna", "V!5:Eg0H~", responseListener);
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
         queue.add(checkGlobalPairsReq);
 

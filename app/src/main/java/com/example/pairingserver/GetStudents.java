@@ -115,7 +115,7 @@ public class GetStudents extends AppCompatActivity {
                     };
 
 
-                    UpdatePairsReq registerRequest = new UpdatePairsReq(jsonArray, "id14702484_clients", "id14702484_pairingapp", "Pairing2020YR!", responseListener);
+                    UpdatePairsReq registerRequest = new UpdatePairsReq(jsonArray, "u747931869_FindPair", "u747931869_yuosifhanna", "V!5:Eg0H~", responseListener);
                     RequestQueue queue = Volley.newRequestQueue(GetStudents.this);
                     queue.add(registerRequest);
 
@@ -260,7 +260,7 @@ public class GetStudents extends AppCompatActivity {
         };
 
 
-        GetStudentsReq getStudents = new GetStudentsReq(Globals.faculty, Globals.course, Globals.workType, "id14702484_clients", "id14702484_pairingapp", "Pairing2020YR!", responseListener);
+        GetStudentsReq getStudents = new GetStudentsReq(Globals.faculty, Globals.course, Globals.workType, "u747931869_FindPair", "u747931869_yuosifhanna", "V!5:Eg0H~", responseListener);
         RequestQueue queue = Volley.newRequestQueue(GetStudents.this);
         queue.add(getStudents);
 

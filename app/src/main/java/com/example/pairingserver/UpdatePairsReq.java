@@ -13,7 +13,7 @@ import java.util.Map;
 import androidx.annotation.Nullable;
 
 public class UpdatePairsReq extends StringRequest {
-    private static final String REGISTER_REQUEST_URL = "https://pairingapp.000webhostapp.com/UpdatePairs.php";
+    private static final String REGISTER_REQUEST_URL = "https://aarasna.in/UpdatePairs.php";
     private Map<String, String> params;
     public UpdatePairsReq(JSONArray jsonArray, String dbname, String dbuser, String dbpass, Response.Listener<String> listener) {
         super(Method.POST, REGISTER_REQUEST_URL, listener, null);

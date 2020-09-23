@@ -10,7 +10,7 @@ import java.util.Map;
 public class GetStudentsReq extends StringRequest {
 
 
-    private static final String LOGIN_REQUEST_URL =  "https://pairingapp.000webhostapp.com/GetStudents.php";
+    private static final String LOGIN_REQUEST_URL =  "https://aarasna.in/GetStudents.php";
     private Map<String, String> params;
 
     public GetStudentsReq(String faculty, String course, String workType, String dbname, String dbuser, String dbpass, Response.Listener<String> listener) {

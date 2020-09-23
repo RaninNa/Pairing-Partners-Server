@@ -131,7 +131,7 @@ public class MatchingResults extends AppCompatActivity {
             }
         };
 
-        RemoveGlobalPairsReq removeGlobalPairsReq = new RemoveGlobalPairsReq("id14702484_clients", "id14702484_pairingapp", "Pairing2020YR!", responseListener);
+        RemoveGlobalPairsReq removeGlobalPairsReq = new RemoveGlobalPairsReq("u747931869_FindPair", "u747931869_yuosifhanna", "V!5:Eg0H~", responseListener);
         RequestQueue queue = Volley.newRequestQueue(MatchingResults.this);
         queue.add(removeGlobalPairsReq);
     }
