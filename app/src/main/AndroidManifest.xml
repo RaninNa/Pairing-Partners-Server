@@ -21,7 +21,7 @@
         <activity android:name=".GetStudents" />
         <activity android:name=".GetAllStudents" />
         <activity android:name=".ActivitySpecificStudents" />
-
+        <activity android:name=".MatchingResults" />
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

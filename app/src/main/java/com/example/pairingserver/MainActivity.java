@@ -1,6 +1,7 @@
 package com.example.pairingserver;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -19,6 +20,13 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -29,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
         FixLayoutAspects();
         Button btnSpecific = (Button) findViewById(R.id.btnSpecificMatching);
         Button btnGlobalMatch = (Button) findViewById(R.id.btnGlobalMatching);
-
+        final TextView TVNoteResults = (TextView) findViewById(R.id.TVNoteResults);
+        final Button btnMatchingResults = (Button) findViewById(R.id.btnShowMatchingResults);
+        //btnMatchingResults.setVisibility(View.INVISIBLE);
         btnSpecific.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,7 +56,67 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-     }
+
+        btnMatchingResults.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, MatchingResults.class);
+                startActivity(intent);
+            }
+        });
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    //JSONObject jsonResponse = new JSONObject(response);
+                    if (response.indexOf("success") >= 0) {
+
+
+                        JSONArray jsonResponse = new JSONArray(response);
+                        boolean success = jsonResponse.getJSONObject(0).getBoolean("success");
+                        response = "[" + response.substring(19);
+                        JSONArray jsonData = new JSONArray(response);
+                        //jsonData.length()
+                        int ArrayStudentsCount = jsonData.length();
+
+                        if (success) {
+                            if(ArrayStudentsCount>0)
+                            {
+                                TVNoteResults.setText("יש כבר שידוך לתוצאות:");
+                                btnMatchingResults.setVisibility(View.VISIBLE);
+                            }
+                            else
+                            {
+                                TVNoteResults.setText("אין שידוך עדיין");
+                                btnMatchingResults.setVisibility(View.INVISIBLE);
+                            }
+
+                            //Globals.ArrayEvents = new Event[ArrayEventsCount];
+
+
+                        } else {
+
+                            TVNoteResults.setText("אין שידוך עדיין");
+
+                        }
+
+
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+
+        CheckGlobalPairsReq checkGlobalPairsReq = new CheckGlobalPairsReq("id14702484_clients", "id14702484_pairingapp", "Pairing2020YR!", responseListener);
+        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+        queue.add(checkGlobalPairsReq);
+
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     void GetScreenSizeScaleParameters()

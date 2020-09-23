@@ -22,7 +22,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/CardViewMain"
         android:layout_width="332.5dp"
-        android:layout_height="364dp"
+        android:layout_height="420dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="75dp"
         app:cardBackgroundColor="@color/White"
@@ -35,26 +35,40 @@
             android:layout_width="257dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="-20dp"
             android:background="@drawable/drawable_button_empty"
-            android:textColor="@color/BorderColor"
             android:fontFamily="@font/newfont"
             android:paddingBottom="4dp"
-            android:textSize="28dp"
-            android:text="שידוך גלובלי" />
+            android:text="שידוך גלובלי"
+            android:textColor="@color/BorderColor"
+            android:textSize="28dp" />
 
         <Button
             android:id="@+id/btnSpecificMatching"
             android:layout_width="257dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="50dp"
             android:background="@drawable/drawable_button_empty"
             android:fontFamily="@font/newfont"
-            android:text="שידוך ספציפי"
             android:paddingBottom="4dp"
-            android:textSize="28dp"
-            android:textColor="@color/BorderColor" />
+            android:text="שידוך ספציפי"
+            android:textColor="@color/BorderColor"
+            android:textSize="28dp" />
+
+        <Button
+            android:id="@+id/btnShowMatchingResults"
+            android:layout_width="257dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="160dp"
+            android:background="@drawable/drawable_button_empty"
+            android:fontFamily="@font/newfont"
+            android:paddingBottom="4dp"
+            android:text="תוצאות"
+            android:textColor="@color/BorderColor"
+            android:textSize="28dp" />
+
 
         <ImageView
             android:id="@+id/imageViewLogo"
@@ -64,6 +78,15 @@
             android:layout_marginTop="40dp"
             android:background="@drawable/findpairlogomatch" />
 
+        <TextView
+            android:id="@+id/TVNoteResults"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="110dp"
+            android:fontFamily="@font/newfont"
+            android:textColor="@color/BorderColor"
+            android:textSize="20dp" />
     </androidx.cardview.widget.CardView>
 
 
