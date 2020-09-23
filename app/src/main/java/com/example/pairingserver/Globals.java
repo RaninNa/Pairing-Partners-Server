@@ -1,5 +1,7 @@
 package com.example.pairingserver;
 
+import android.util.DisplayMetrics;
+
 public class Globals {
     public static Student[] students;
     public static String faculty;
@@ -8,4 +10,15 @@ public class Globals {
     public static int[][] pairs_scores;
     public static int MatchType;
     public static DataStructure[] GlobalData;
+    public static int ScreenWidth = 0;
+    public static int ScreenHeight = 0;
+
+    public static int ActualWidth = 0;
+    public static int ActualHeight = 0;
+    public static DisplayMetrics metrics;
+    public static DisplayMetrics metrics2;
+    public static float scaleDP;
+    public static float scaleS= 1;
+    public static float DP;
+    public static float Ratio;
 }
