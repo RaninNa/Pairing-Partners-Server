@@ -4,6 +4,8 @@ import android.util.DisplayMetrics;
 
 public class Globals {
     public static Student[] students;
+    public static Partner[] partners;
+    public static PairsData[] pairs;
     public static String faculty;
     public static String course;
     public static String workType;

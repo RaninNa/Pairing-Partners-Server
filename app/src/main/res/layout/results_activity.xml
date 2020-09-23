@@ -20,7 +20,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/CardViewResults"
         android:layout_width="332.5dp"
-        android:layout_height="550dp"
+        android:layout_height="520dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="75dp"
         app:cardBackgroundColor="@color/White"
@@ -42,12 +42,14 @@
                 <RelativeLayout
                     android:id="@+id/RLGetStudents"
                     android:layout_width="match_parent"
+
                     android:layout_height="match_parent">
 
                     <TableLayout
                         android:id="@+id/tableRes"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center">
 
 
                     </TableLayout>

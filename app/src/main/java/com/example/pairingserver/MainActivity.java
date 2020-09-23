@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnGlobalMatch = (Button) findViewById(R.id.btnGlobalMatching);
         final TextView TVNoteResults = (TextView) findViewById(R.id.TVNoteResults);
         final Button btnMatchingResults = (Button) findViewById(R.id.btnShowMatchingResults);
-        //btnMatchingResults.setVisibility(View.INVISIBLE);
+        btnMatchingResults.setVisibility(View.INVISIBLE);
         btnSpecific.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
