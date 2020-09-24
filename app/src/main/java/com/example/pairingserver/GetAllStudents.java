@@ -1,5 +1,6 @@
 package com.example.pairingserver;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,6 +43,7 @@ public class GetAllStudents extends AppCompatActivity {
         final TextView textViewRes = (TextView) findViewById(R.id.TVRes);
         final TextView pairing_results = (TextView) findViewById(R.id.pairingResults);
         final Button btnMatch = (Button) findViewById(R.id.btnMatch);
+        final Button btnResults = (Button) findViewById(R.id.btnShowMatchingResults);
         final int[][] scores_;
         btnMatch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,9 +95,9 @@ public class GetAllStudents extends AppCompatActivity {
                                     try {
                                         JSONObject jsonResponse = new JSONObject(response);
                                         boolean success = jsonResponse.getBoolean("success");
-                                        String id = jsonResponse.getString("id");
                                         if (success) {
                                             Toast.makeText(getApplicationContext(), "שליחה התבצעה", Toast.LENGTH_LONG).show();
+                                            btnResults.setVisibility(View.VISIBLE);
                                             //Intent intent = new Intent();
                                             //getActivity().startActivity(intent);
                                             //Intent intent = new Intent(AuthenticateUser.this, RegisterEventActivity.class);
@@ -119,7 +121,7 @@ public class GetAllStudents extends AppCompatActivity {
                             };
 
 
-                            UpdatePairsReq registerRequest = new UpdatePairsReq(jsonArray, "id14702484_clients", "id14702484_pairingapp", "Pairing2020YR!", responseListener);
+                            UpdatePairsReq registerRequest = new UpdatePairsReq(jsonArray, "u747931869_FindPair", "u747931869_yuosifhanna", "V!5:Eg0H~", responseListener);
                             RequestQueue queue = Volley.newRequestQueue(GetAllStudents.this);
                             queue.add(registerRequest);
 
@@ -134,7 +136,14 @@ public class GetAllStudents extends AppCompatActivity {
 
             }
         });
-
+        btnResults.setVisibility(View.INVISIBLE);
+        btnResults.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(GetAllStudents.this, MatchingResults.class);
+                startActivity(intent);
+            }
+        });
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -345,7 +354,7 @@ public class GetAllStudents extends AppCompatActivity {
         };
 
 
-        GetAllStudentsReq getAllStudents = new GetAllStudentsReq("id14702484_clients", "id14702484_pairingapp", "Pairing2020YR!", responseListener);
+        GetAllStudentsReq getAllStudents = new GetAllStudentsReq("u747931869_FindPair", "u747931869_yuosifhanna", "V!5:Eg0H~", responseListener);
         RequestQueue queue = Volley.newRequestQueue(GetAllStudents.this);
         queue.add(getAllStudents);
 

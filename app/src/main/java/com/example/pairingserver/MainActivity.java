@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnGlobalMatch = (Button) findViewById(R.id.btnGlobalMatching);
         final TextView TVNoteResults = (TextView) findViewById(R.id.TVNoteResults);
         final Button btnMatchingResults = (Button) findViewById(R.id.btnShowMatchingResults);
-        //btnMatchingResults.setVisibility(View.INVISIBLE);
+        btnMatchingResults.setVisibility(View.INVISIBLE);
         btnSpecific.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
 
-        CheckGlobalPairsReq checkGlobalPairsReq = new CheckGlobalPairsReq("id14702484_clients", "id14702484_pairingapp", "Pairing2020YR!", responseListener);
+        CheckGlobalPairsReq checkGlobalPairsReq = new CheckGlobalPairsReq("u747931869_FindPair", "u747931869_yuosifhanna", "V!5:Eg0H~", responseListener);
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
         queue.add(checkGlobalPairsReq);
 

@@ -6,22 +6,18 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
+public class GetAllPairsReq extends StringRequest {
 
-public class GetStudentsReq extends StringRequest {
 
-
-    private static final String LOGIN_REQUEST_URL =  "https://aarasna.in/GetStudents.php";
+    private static final String LOGIN_REQUEST_URL =  "https://aarasna.in/GetAllPairs.php";
     private Map<String, String> params;
 
-    public GetStudentsReq(String faculty, String course, String workType, String dbname, String dbuser, String dbpass, Response.Listener<String> listener) {
+    public GetAllPairsReq(String dbname, String dbuser, String dbpass, Response.Listener<String> listener) {
         super(Method.POST, LOGIN_REQUEST_URL, listener, null);
         params = new HashMap<>();
         params.put("dbname", dbname);
         params.put("dbuser", dbuser);
         params.put("dbpass", dbpass);
-        params.put("faculty", faculty);
-        params.put("course", course);
-        params.put("workType", workType);
     }
 
 

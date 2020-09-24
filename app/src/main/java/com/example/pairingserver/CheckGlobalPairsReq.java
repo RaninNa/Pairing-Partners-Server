@@ -9,7 +9,7 @@ import java.util.Map;
 public class CheckGlobalPairsReq extends StringRequest {
 
 
-    private static final String LOGIN_REQUEST_URL =  "https://pairingapp.000webhostapp.com/CheckGlobalPairs.php";
+    private static final String LOGIN_REQUEST_URL =  "https://aarasna.in/CheckGlobalPairs.php";
     private Map<String, String> params;
 
     public CheckGlobalPairsReq(String dbname, String dbuser, String dbpass, Response.Listener<String> listener) {
