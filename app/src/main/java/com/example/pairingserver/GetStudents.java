@@ -1,5 +1,6 @@
 package com.example.pairingserver;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +42,15 @@ public class GetStudents extends AppCompatActivity {
         final TextView textViewRes = (TextView) findViewById(R.id.TVRes);
         final TextView pairing_results = (TextView) findViewById(R.id.pairingResults);
         final Button btnMatch = (Button) findViewById(R.id.btnMatch);
+        final Button btnResults = (Button) findViewById(R.id.btnShowMatchingResults);
+        btnResults.setVisibility(View.INVISIBLE);
+        btnResults.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(GetStudents.this, MatchingResults.class);
+                startActivity(intent);
+            }
+        });
         final int[][] scores_;
         btnMatch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,9 +99,9 @@ public class GetStudents extends AppCompatActivity {
                             try {
                                 JSONObject jsonResponse = new JSONObject(response);
                                 boolean success = jsonResponse.getBoolean("success");
-                                String id = jsonResponse.getString("id");
                                 if (success) {
                                     Toast.makeText(getApplicationContext(), "שליחה התבצעה", Toast.LENGTH_LONG).show();
+                                    btnResults.setVisibility(View.VISIBLE);
                                     //Intent intent = new Intent();
                                     //getActivity().startActivity(intent);
                                     //Intent intent = new Intent(AuthenticateUser.this, RegisterEventActivity.class);
