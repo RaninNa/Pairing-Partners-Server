@@ -49,7 +49,7 @@ public class GetAllStudents extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 for (int d = 0; d < Globals.GlobalData.length; d++) {
-                    if (Globals.GlobalData[d] != null) {
+                    if (Globals.GlobalData[d] != null && Globals.GlobalData[d].scores.length>1) {
                         HungarianAlgorithm ha = new HungarianAlgorithm(Globals.GlobalData[d].scores);
                         int[][] assignment = ha.findOptimalAssignment();
                         String AllStudents = "@";
@@ -59,7 +59,7 @@ public class GetAllStudents extends AppCompatActivity {
 
                         String res_string = " ";
                         JSONArray jsonArray = new JSONArray();
-                        if (assignment.length > 0) {
+                        if (assignment.length > 1) {
                             // print assignment
                             for (int i = 0; i < assignment.length; i++) {
                                 if (AllStudents.contains("@" + Globals.GlobalData[d].getStudents()[assignment[i][0]].getUser_name() + "@")) {
@@ -335,6 +335,10 @@ public class GetAllStudents extends AppCompatActivity {
                                 btnMatch.setEnabled(true);
 
                             }
+                            else
+                            {
+                                textViewRes.setText("אין נתונים! \n");
+                            }
                         } else {
                             AlertDialog.Builder builder = new AlertDialog.Builder(GetAllStudents.this);
                             builder.setMessage("GetAllStudents Failed")
@@ -349,7 +353,9 @@ public class GetAllStudents extends AppCompatActivity {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    textViewRes.setText("אין נתונים! \n");
                 }
+
             }
         };
 

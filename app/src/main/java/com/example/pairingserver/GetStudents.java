@@ -1,5 +1,6 @@
 package com.example.pairingserver;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,91 +42,102 @@ public class GetStudents extends AppCompatActivity {
         final TextView textViewRes = (TextView) findViewById(R.id.TVRes);
         final TextView pairing_results = (TextView) findViewById(R.id.pairingResults);
         final Button btnMatch = (Button) findViewById(R.id.btnMatch);
+        final Button btnResults = (Button) findViewById(R.id.btnShowMatchingResults);
+        btnResults.setVisibility(View.INVISIBLE);
+        btnResults.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(GetStudents.this, MatchingResults.class);
+                startActivity(intent);
+            }
+        });
         final int[][] scores_;
         btnMatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HungarianAlgorithm ha = new HungarianAlgorithm(Globals.pairs_scores);
-                int[][] assignment = ha.findOptimalAssignment();
-                String AllStudents = "@";
-                for (int i = 0; i < assignment.length; i++) {
-                    AllStudents += Globals.students[assignment[i][0]].getUser_name() + "@";
-                }
-
-                String res_string = " ";
-                JSONArray jsonArray = new JSONArray();
-                if (assignment.length > 0) {
-                    // print assignment
+                if (Globals.pairs_scores.length > 1) {
+                    HungarianAlgorithm ha = new HungarianAlgorithm(Globals.pairs_scores);
+                    int[][] assignment = ha.findOptimalAssignment();
+                    String AllStudents = "@";
                     for (int i = 0; i < assignment.length; i++) {
-                        if (AllStudents.contains("@" + Globals.students[assignment[i][0]].getUser_name() + "@")) {
-                            res_string += Globals.students[assignment[i][0]].getName() + " <=> " + Globals.students[assignment[i][1]].getName() + "\n";
-                            JSONObject jsonObj = new JSONObject();
-                            try {
-                                jsonObj.put("user_name", Globals.students[assignment[i][0]].getUser_name());
-                                jsonObj.put("name", Globals.students[assignment[i][0]].getName());
-                                jsonObj.put("email", Globals.students[assignment[i][0]].getEmail());
-                                jsonObj.put("phone", Globals.students[assignment[i][0]].getPhone());
-                                jsonObj.put("agreed1", 0);
-                                jsonObj.put("faculty", Globals.students[assignment[i][0]].getFaculty());
-                                jsonObj.put("course", Globals.students[assignment[i][0]].getCourse());
-                                jsonObj.put("workType", Globals.students[assignment[i][0]].getWork_type());
-                                jsonObj.put("pairUserName", Globals.students[assignment[i][1]].getUser_name());
-                                jsonObj.put("nameOfPair", Globals.students[assignment[i][1]].getName());
-                                jsonObj.put("emailOfPair", Globals.students[assignment[i][1]].getEmail());
-                                jsonObj.put("phoneOfPair", Globals.students[assignment[i][1]].getPhone());
-                                jsonObj.put("agreed2", 0);
-                                jsonArray.put(jsonObj);
-                                AllStudents = AllStudents.replace("@" + Globals.students[assignment[i][0]].getUser_name() + "@", "@");
-                                AllStudents = AllStudents.replace("@" + Globals.students[assignment[i][1]].getUser_name() + "@", "@");
+                        AllStudents += Globals.students[assignment[i][0]].getUser_name() + "@";
+                    }
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                    String res_string = " ";
+                    JSONArray jsonArray = new JSONArray();
+                    if (assignment.length > 1) {
+                        // print assignment
+                        for (int i = 0; i < assignment.length; i++) {
+                            if (AllStudents.contains("@" + Globals.students[assignment[i][0]].getUser_name() + "@")) {
+                                res_string += Globals.students[assignment[i][0]].getName() + " <=> " + Globals.students[assignment[i][1]].getName() + "\n";
+                                JSONObject jsonObj = new JSONObject();
+                                try {
+                                    jsonObj.put("user_name", Globals.students[assignment[i][0]].getUser_name());
+                                    jsonObj.put("name", Globals.students[assignment[i][0]].getName());
+                                    jsonObj.put("email", Globals.students[assignment[i][0]].getEmail());
+                                    jsonObj.put("phone", Globals.students[assignment[i][0]].getPhone());
+                                    jsonObj.put("agreed1", 0);
+                                    jsonObj.put("faculty", Globals.students[assignment[i][0]].getFaculty());
+                                    jsonObj.put("course", Globals.students[assignment[i][0]].getCourse());
+                                    jsonObj.put("workType", Globals.students[assignment[i][0]].getWork_type());
+                                    jsonObj.put("pairUserName", Globals.students[assignment[i][1]].getUser_name());
+                                    jsonObj.put("nameOfPair", Globals.students[assignment[i][1]].getName());
+                                    jsonObj.put("emailOfPair", Globals.students[assignment[i][1]].getEmail());
+                                    jsonObj.put("phoneOfPair", Globals.students[assignment[i][1]].getPhone());
+                                    jsonObj.put("agreed2", 0);
+                                    jsonArray.put(jsonObj);
+                                    AllStudents = AllStudents.replace("@" + Globals.students[assignment[i][0]].getUser_name() + "@", "@");
+                                    AllStudents = AllStudents.replace("@" + Globals.students[assignment[i][1]].getUser_name() + "@", "@");
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
-                    }
-                    Response.Listener<String> responseListener = new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                JSONObject jsonResponse = new JSONObject(response);
-                                boolean success = jsonResponse.getBoolean("success");
-                                String id = jsonResponse.getString("id");
-                                if (success) {
-                                    Toast.makeText(getApplicationContext(), "שליחה התבצעה", Toast.LENGTH_LONG).show();
-                                    //Intent intent = new Intent();
-                                    //getActivity().startActivity(intent);
-                                    //Intent intent = new Intent(AuthenticateUser.this, RegisterEventActivity.class);
-                                    //AuthenticateUser.this.startActivity(intent);
+                        Response.Listener<String> responseListener = new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject jsonResponse = new JSONObject(response);
+                                    boolean success = jsonResponse.getBoolean("success");
+                                    if (success) {
+                                        Toast.makeText(getApplicationContext(), "שליחה התבצעה", Toast.LENGTH_LONG).show();
+                                        btnResults.setVisibility(View.VISIBLE);
+                                        //Intent intent = new Intent();
+                                        //getActivity().startActivity(intent);
+                                        //Intent intent = new Intent(AuthenticateUser.this, RegisterEventActivity.class);
+                                        //AuthenticateUser.this.startActivity(intent);
 
-                                    try {
-                                        //if (AuthenticateUser.this != null)
-                                        //hideSoftKeyboard(AuthenticateUser.this);
-                                    } catch (Exception e) {
+                                        try {
+                                            //if (AuthenticateUser.this != null)
+                                            //hideSoftKeyboard(AuthenticateUser.this);
+                                        } catch (Exception e) {
+
+                                        }
+
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "שליחה נכשלה", Toast.LENGTH_LONG).show();
 
                                     }
-
-                                } else {
-                                    Toast.makeText(getApplicationContext(), "שליחה נכשלה", Toast.LENGTH_LONG).show();
-
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
                             }
-                        }
-                    };
+                        };
 
 
-                    UpdatePairsReq registerRequest = new UpdatePairsReq(jsonArray, "u747931869_FindPair", "u747931869_yuosifhanna", "V!5:Eg0H~", responseListener);
-                    RequestQueue queue = Volley.newRequestQueue(GetStudents.this);
-                    queue.add(registerRequest);
+                        UpdatePairsReq registerRequest = new UpdatePairsReq(jsonArray, "u747931869_FindPair", "u747931869_yuosifhanna", "V!5:Eg0H~", responseListener);
+                        RequestQueue queue = Volley.newRequestQueue(GetStudents.this);
+                        queue.add(registerRequest);
 
 
+                    } else {
+                        Toast.makeText(getApplicationContext(), "no assignment found!", Toast.LENGTH_LONG).show();
+                    }
 
-                } else {
-                    Toast.makeText(getApplicationContext(), "no assignment found!", Toast.LENGTH_LONG).show();
+                    pairing_results.setText(res_string);
                 }
 
-                pairing_results.setText(res_string);
             }
         });
 
@@ -241,11 +253,7 @@ public class GetStudents extends AppCompatActivity {
                                 textViewRes.setText("אין נתונים! \n");
                             }
                         } else {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(GetStudents.this);
-                            builder.setMessage("GetStudents Failed")
-                                    .setNegativeButton("Retry", null)
-                                    .create()
-                                    .show();
+                            textViewRes.setText("אין נתונים! \n");
                         }
 
 
@@ -254,7 +262,7 @@ public class GetStudents extends AppCompatActivity {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-
+                    textViewRes.setText("אין נתונים! \n");
                 }
             }
         };
