@@ -502,8 +502,11 @@ public class GetAllStudents extends AppCompatActivity {
                     NewLP.topMargin = (int) (((NewLP.topMargin / Globals.DP) - 15) * Globals.DP);
                 //view.setLayoutParams(NewLP);
             } else if (view instanceof CardView) {
-                if (Globals.Ratio > 17f / 9f) {
+                if(Globals.Ratio > (float)(17f / 9f) ) {
                     NewLP.height = (int) (NewLP.height * 1.1f);
+                }
+                if (Globals.Ratio > (float) (19f / 9f)) {
+                    NewLP.height = (int) (NewLP.height * 1.12f);
                 }
             }
             view.setLayoutParams(NewLP);
@@ -567,8 +570,11 @@ public class GetAllStudents extends AppCompatActivity {
                 Spinner spinner = (Spinner) view;
 
             } else if (view instanceof CardView) {
-                if (Globals.Ratio > 17f / 9f) {
+                if(Globals.Ratio > (float)(17f / 9f) ) {
                     NewLP.height = (int) (NewLP.height * 1.1f);
+                }
+                if (Globals.Ratio > (float) (19f / 9f)) {
+                    NewLP.height = (int) (NewLP.height * 1.12f);
                 }
             }
             view.setLayoutParams(NewLP);
