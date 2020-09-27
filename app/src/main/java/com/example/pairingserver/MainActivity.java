@@ -152,6 +152,9 @@ public class MainActivity extends AppCompatActivity {
 
         if(Globals.Ratio==18.5f / 9f ||  Globals.Ratio==19f / 9f || Globals.Ratio==19.5f / 9f || Globals.Ratio==18f / 9f || Globals.Ratio == 20f/9f) {
             Globals.scaleDP = 3.5f / metrics.density * Globals.ScreenWidth / 1440f;
+            if(Globals.Ratio==20f / 9f) {
+                Globals.scaleRatio = 0.9f;
+            }
         }
         if(Globals.Ratio==16f / 9f )
         {

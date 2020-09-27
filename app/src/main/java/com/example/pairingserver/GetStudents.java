@@ -197,6 +197,7 @@ public class GetStudents extends AppCompatActivity {
                         Globals.partners = new Partner[jsonData.length()];
                         CheckBox checkBox;
                         TextView No, name1, name2, title, status, empty;
+                        Button deleteData;
                         final Typeface tvFont = ResourcesCompat.getFont(GetStudents.this, R.font.newfont);
                         Globals.pairs = new PairsData[30];
                         if (success) {
@@ -249,13 +250,16 @@ public class GetStudents extends AppCompatActivity {
                                     rowEMPTY.setLayoutParams(lp);
                                     tableRes.addView(rowEMPTY, 0);
                                     tableRes.addView(rowTitle, 0);
+
+                                    //deleteData = new Button(GetStudents.this);
+
                                     for (int i = 0; i < Globals.partners.length; i++) {
                                         TableRow row = new TableRow(GetStudents.this);
-                                        int width = (int) (450 * Globals.scaleDP);
-                                        TableRow.LayoutParams lpname1 = new TableRow.LayoutParams(width, (int) (100 * Globals.scaleDP));
-                                        TableRow.LayoutParams lpname2 = new TableRow.LayoutParams(width, (int) (100 * Globals.scaleDP));
-                                        TableRow.LayoutParams lpstatus = new TableRow.LayoutParams((int) (80 * Globals.scaleDP), (int) (100 * Globals.scaleDP));
-                                        TableRow.LayoutParams lpNo = new TableRow.LayoutParams((int) (80 * Globals.scaleDP), (int) (100 * Globals.scaleDP));
+                                        int width = (int) (450 * Globals.scaleDP* Globals.scaleRatio);
+                                        TableRow.LayoutParams lpname1 = new TableRow.LayoutParams(width, (int) (100 * Globals.scaleDP* Globals.scaleRatio));
+                                        TableRow.LayoutParams lpname2 = new TableRow.LayoutParams(width, (int) (100 * Globals.scaleDP* Globals.scaleRatio));
+                                        TableRow.LayoutParams lpstatus = new TableRow.LayoutParams((int) (80 * Globals.scaleDP* Globals.scaleRatio), (int) (100 * Globals.scaleDP* Globals.scaleRatio));
+                                        TableRow.LayoutParams lpNo = new TableRow.LayoutParams((int) (80 * Globals.scaleDP* Globals.scaleRatio), (int) (100 * Globals.scaleDP* Globals.scaleRatio));
                                         lpname1.gravity = Gravity.CENTER_HORIZONTAL;
                                         lpname2.gravity = Gravity.CENTER_HORIZONTAL;
                                         lpNo.gravity = Gravity.CENTER_HORIZONTAL;
@@ -517,10 +521,12 @@ public class GetStudents extends AppCompatActivity {
                     NewLP.topMargin = (int)(((NewLP.topMargin / Globals.DP)-15)*Globals.DP) ;
                 //view.setLayoutParams(NewLP);
             }
-            else if (view instanceof CardView)
-            {
-                if(Globals.Ratio >17f / 9f ) {
+            else if (view instanceof CardView) {
+                if (Globals.Ratio > (float) (17f / 9f)) {
                     NewLP.height = (int) (NewLP.height * 1.1f);
+                }
+                if (Globals.Ratio > (float) (19f / 9f)) {
+                    NewLP.height = (int) (NewLP.height * 1.12f);
                 }
             }
             view.setLayoutParams(NewLP);
@@ -586,8 +592,11 @@ public class GetStudents extends AppCompatActivity {
             }
             else if (view instanceof CardView)
             {
-                if(Globals.Ratio >17f / 9f ) {
+                if(Globals.Ratio > (float)(17f / 9f) ) {
                     NewLP.height = (int) (NewLP.height * 1.1f);
+                }
+                if (Globals.Ratio > (float) (19f / 9f)) {
+                    NewLP.height = (int) (NewLP.height * 1.12f);
                 }
             }
             view.setLayoutParams(NewLP);

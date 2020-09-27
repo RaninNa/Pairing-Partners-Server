@@ -21,6 +21,7 @@ public class Globals {
     public static DisplayMetrics metrics2;
     public static float scaleDP;
     public static float scaleS= 1;
+    public static float scaleRatio= 1;
     public static float DP;
     public static float Ratio;
 }

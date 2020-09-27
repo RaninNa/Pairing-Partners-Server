@@ -1,9 +1,11 @@
 package com.example.pairingserver;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.service.autofill.FieldClassification;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -216,13 +218,40 @@ public class MatchingResults extends AppCompatActivity {
                                     TableRow rowDelete = new TableRow(MatchingResults.this);
                                     TableRow rowEMPTY2 = new TableRow(MatchingResults.this);
                                     TableRow.LayoutParams lp1 = new TableRow.LayoutParams((int)(100 * Globals.scaleDP));
-                                    TableRow.LayoutParams lptitle1 = new TableRow.LayoutParams((int) (50* Globals.scaleDP), (int) (150 * Globals.scaleDP));
-                                    lptitle1 = new TableRow.LayoutParams((int) (50* Globals.scaleDP), (int) (150 * Globals.scaleDP));
+                                    TableRow.LayoutParams lptitle1;// = new TableRow.LayoutParams((int) (50* Globals.scaleDP), (int) (150 * Globals.scaleDP));
+                                    lptitle1 = new TableRow.LayoutParams((int) (1* Globals.scaleDP), ViewGroup.LayoutParams.WRAP_CONTENT);
                                     lp1.gravity = Gravity.CENTER_HORIZONTAL;
                                     lptitle1.gravity = Gravity.CENTER_HORIZONTAL;
-                                    lptitle1.rightMargin = (int)(60 * (Globals.scaleDP));
-                                    lptitle1.weight = 1;
+                                    lptitle1.rightMargin = (int)(80 * (Globals.scaleDP));
+                                    lptitle1.leftMargin = (int)(80 * (Globals.scaleDP));
+                                    lptitle1.weight=1f;
+
                                     deleteData = new Button(MatchingResults.this);
+                                    final int Y=j;
+                                    deleteData.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+
+                                            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    switch (which) {
+                                                        case DialogInterface.BUTTON_POSITIVE:
+                                                            //Yes button clicked
+                                                            DeleteSpecificMatchingRes(Globals.pairs[Y].getPartners()[0].getFaculty(),Globals.pairs[Y].getPartners()[0].getCourse(),Globals.pairs[Y].getPartners()[0].getWorkType());
+                                                            break;
+
+                                                        case DialogInterface.BUTTON_NEGATIVE:
+                                                            //No button clicked
+                                                            break;
+                                                    }
+                                                }
+                                            };
+                                            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(MatchingResults.this);
+                                            builder.setMessage("האם למחוק את הנתונים?").setPositiveButton("כן", dialogClickListener)
+                                                    .setNegativeButton("לא", dialogClickListener).show();
+                                                                            }
+                                    });
                                     deleteData.setText("מחק נתונים");
                                     deleteData.setTextColor(getResources().getColor(R.color.White));
                                     deleteData.setTypeface(tvFont);
@@ -235,36 +264,35 @@ public class MatchingResults extends AppCompatActivity {
                                     rowDelete.setLayoutParams(lp1);
                                     rowEMPTY2.addView(empty);
                                     rowEMPTY2.setLayoutParams(lp1);
-                                    //tableRes.addView(rowEMPTY2,2);
+
                                     tableRes.addView(rowDelete,1);
 
 
 
 
 
-                                    for(int i = 0; i < lengths[j]; i++)
-                                    {
+                                    for(int i = 0; i < lengths[j]; i++) {
                                         TableRow row = new TableRow(MatchingResults.this);
-                                        int width = (int)(450 * Globals.scaleDP);
-                                        TableRow.LayoutParams lpname1 = new TableRow.LayoutParams(width, (int) (100 * Globals.scaleDP));
-                                        TableRow.LayoutParams lpname2 = new TableRow.LayoutParams(width, (int) (100 * Globals.scaleDP));
-                                        TableRow.LayoutParams lpstatus = new TableRow.LayoutParams((int) (80 * Globals.scaleDP), (int) (100 * Globals.scaleDP));
-                                        TableRow.LayoutParams lpNo = new TableRow.LayoutParams((int) (80 * Globals.scaleDP), (int) (100 * Globals.scaleDP));
+                                        int width = (int) (450 * Globals.scaleDP * Globals.scaleRatio);
+                                        TableRow.LayoutParams LPRow = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.WRAP_CONTENT);
+                                        TableRow.LayoutParams lpname1 = new TableRow.LayoutParams(width, (int) (100 * Globals.scaleDP * Globals.scaleRatio));
+                                        TableRow.LayoutParams lpname2 = new TableRow.LayoutParams(width, (int) (100 * Globals.scaleDP * Globals.scaleRatio));
+                                        TableRow.LayoutParams lpstatus = new TableRow.LayoutParams((int) (80 * Globals.scaleDP * Globals.scaleRatio), (int) (100 * Globals.scaleDP * Globals.scaleRatio));
+                                        TableRow.LayoutParams lpNo = new TableRow.LayoutParams((int) (80 * Globals.scaleDP * Globals.scaleRatio), (int) (100 * Globals.scaleDP * Globals.scaleRatio));
                                         lpname1.gravity = Gravity.CENTER_HORIZONTAL;
                                         lpname2.gravity = Gravity.CENTER_HORIZONTAL;
                                         lpNo.gravity = Gravity.CENTER_HORIZONTAL;
-                                        lpNo.leftMargin=(int)(20 *  (Globals.scaleDP));
                                         No = new TextView(MatchingResults.this);
                                         No.setText("" + (i + 1));
                                         No.setTextColor(getResources().getColor(R.color.BorderColor));
-                                        No.setTextSize((int)(Globals.scaleDP * 22));
+                                        No.setTextSize((int) (Globals.scaleDP * 22));
                                         No.setLayoutParams(lpNo);
                                         //minusBtn.setImageResource(R.drawable.minus);
                                         name1 = new TextView(MatchingResults.this);
                                         name1.setTypeface(tvFont);
                                         name1.setText(Globals.pairs[j].getPartners()[i].getName());
                                         name1.setTextColor(getResources().getColor(R.color.BorderColor));
-                                        name1.setTextSize((int)(Globals.scaleDP * 22));
+                                        name1.setTextSize((int) (Globals.scaleDP * 22));
                                         name1.setLayoutParams(lpname1);
                                         float size = name1.getTextSize();
 
@@ -273,29 +301,31 @@ public class MatchingResults extends AppCompatActivity {
                                         name2.setTypeface(tvFont);
                                         name2.setText(Globals.pairs[j].getPartners()[i].getPairName());
                                         name2.setTextColor(getResources().getColor(R.color.BorderColor));
-                                        name2.setTextSize((int)(Globals.scaleDP * 22));
+                                        name2.setTextSize((int) (Globals.scaleDP * 22));
                                         name2.setLayoutParams(lpname2);
 
                                         status = new TextView(MatchingResults.this);
                                         status.setTypeface(tvFont);
                                         status.setTextColor(getResources().getColor(R.color.BorderColor));
-                                        status.setTextSize((int)(Globals.scaleDP * 20));
+                                        status.setTextSize((int) (Globals.scaleDP * 20));
                                         status.setLayoutParams(lpstatus);
-                                        if(Globals.pairs[j].getPartners()[i].getAgreed1() == 1 &&Globals.pairs[j].getPartners()[i].getAgreed2() == 1 )
+                                        if (Globals.pairs[j].getPartners()[i].getAgreed1() == 1 && Globals.pairs[j].getPartners()[i].getAgreed2() == 1)
                                             status.setText("ש");
                                         else
                                             status.setText("ע");
+
+                                        //row.setLayoutParams(LPRow);
 
                                         row.addView(No);
                                         row.addView(name1);
                                         row.addView(name2);
                                         row.addView(status);
                                         //row.setLayoutParams(lp);
-                                        tableRes.addView(row, (i+1));
+                                        tableRes.addView(row, (i + 1));
 
                                     }
 
-
+                                    tableRes.addView(rowEMPTY2,lengths[j]+1);
                                 }
 
                             }
@@ -370,6 +400,48 @@ public class MatchingResults extends AppCompatActivity {
         queue.add(removeGlobalPairsReq);
     }
 
+
+
+    void DeleteSpecificMatchingRes(String faculty, String course, String workType)
+    {
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    //JSONObject jsonResponse = new JSONObject(response);
+                    if (response.indexOf("success") >= 0) {
+
+                        JSONArray jsonResponse = new JSONArray(response);
+                        boolean success = jsonResponse.getJSONObject(0).getBoolean("success");
+                        response = "[" + response.substring(19);
+                        JSONArray jsonData = new JSONArray(response);
+                        //jsonData.length()
+                        if (success) {
+                            Intent intent = new Intent(MatchingResults.this, MatchingResults.class);
+                            startActivity(intent);
+                            finish();
+
+                            //finish();
+
+                        } else {
+
+
+                        }
+
+
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        RemovePairsReq removePairsReq = new RemovePairsReq(faculty, course, workType,  "u747931869_FindPair", "u747931869_yuosifhanna", "V!5:Eg0H~", responseListener);
+        RequestQueue queue = Volley.newRequestQueue(MatchingResults.this);
+        queue.add(removePairsReq);
+    }
     void FixLayoutAspects()
     {
 
