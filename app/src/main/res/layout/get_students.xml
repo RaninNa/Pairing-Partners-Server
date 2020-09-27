@@ -7,6 +7,16 @@
     android:id="@+id/RLGet"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:id="@+id/RLCardView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="210dp"
+        android:background="@color/White">
+
+    </RelativeLayout>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/CardViewGetStudents"
         android:layout_width="332.5dp"
@@ -34,17 +44,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/TVRes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/newfont"
-            android:text="@string/studentNum"
-            android:layout_gravity="center|top"
-            android:textColor="@color/BorderColor"
-            android:textSize="28dp" />
+            <TextView
+                android:id="@+id/TVRes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center|top"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/newfont"
+                android:text="@string/studentNum"
+                android:textColor="@color/BorderColor"
+                android:textSize="22dp" />
 
             <Button
                 android:id="@+id/btnMatch"
@@ -69,6 +79,15 @@
                 android:layout_marginTop="150dp"
                 android:textSize="14dp" />
 
+            <TableLayout
+                android:id="@+id/tableRes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="230dp">
+
+
+            </TableLayout>
 
             <Button
                 android:id="@+id/btnShowMatchingResults"
@@ -88,5 +107,18 @@
 
 
     </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/btnDeleteRes"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/drawable_button"
+        android:fontFamily="@font/newfont"
+        android:text="מחק נתונים"
+        android:textSize="29dp" />
+
 
 </RelativeLayout>

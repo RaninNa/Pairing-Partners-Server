@@ -73,10 +73,13 @@
         <ImageView
             android:id="@+id/imageViewLogo"
             android:layout_width="173.1dp"
-            android:layout_height="91.7dp"
+            android:layout_height="71.4dp"
             android:layout_gravity="center|top"
             android:layout_marginTop="40dp"
             android:background="@drawable/findpairlogomatch" />
+
+
+
 
         <TextView
             android:id="@+id/TVNoteResults"
