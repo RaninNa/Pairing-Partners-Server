@@ -9,6 +9,6 @@
     android:fontFamily="@font/newfont"
     android:gravity="center"
     android:layout_centerHorizontal="true"
-    android:background="#3ba2ff"
+    android:background="#4348d8"
     android:textColor="@color/White"
     />

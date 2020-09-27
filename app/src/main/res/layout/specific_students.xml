@@ -29,14 +29,14 @@
         app:cardElevation="7dp">
 
 
+
         <ImageView
             android:id="@+id/imageViewLogo2"
             android:layout_width="173.1dp"
-            android:layout_height="91.7dp"
+            android:layout_height="71.4dp"
             android:layout_gravity="center|top"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/findpairlogomatch" />
-
         <Spinner
             android:id="@+id/spinnerFaculty"
             android:layout_width="300dp"

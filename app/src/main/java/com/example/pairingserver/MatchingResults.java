@@ -86,6 +86,7 @@ public class MatchingResults extends AppCompatActivity {
                         Globals.partners = new Partner[jsonData.length()];
                         CheckBox checkBox;
                         TextView No, name1, name2, title, status, empty;
+                        Button deleteData;
                         final Typeface tvFont = ResourcesCompat.getFont(MatchingResults.this, R.font.newfont);
                         Globals.pairs = new PairsData[30];
                         if (success) {
@@ -208,6 +209,39 @@ public class MatchingResults extends AppCompatActivity {
                                     rowEMPTY.setLayoutParams(lp);
                                     tableRes.addView(rowEMPTY,0);
                                     tableRes.addView(rowTitle,0);
+
+
+
+
+                                    TableRow rowDelete = new TableRow(MatchingResults.this);
+                                    TableRow rowEMPTY2 = new TableRow(MatchingResults.this);
+                                    TableRow.LayoutParams lp1 = new TableRow.LayoutParams((int)(100 * Globals.scaleDP));
+                                    TableRow.LayoutParams lptitle1 = new TableRow.LayoutParams((int) (50* Globals.scaleDP), (int) (150 * Globals.scaleDP));
+                                    lptitle1 = new TableRow.LayoutParams((int) (50* Globals.scaleDP), (int) (150 * Globals.scaleDP));
+                                    lp1.gravity = Gravity.CENTER_HORIZONTAL;
+                                    lptitle1.gravity = Gravity.CENTER_HORIZONTAL;
+                                    lptitle1.rightMargin = (int)(60 * (Globals.scaleDP));
+                                    lptitle1.weight = 1;
+                                    deleteData = new Button(MatchingResults.this);
+                                    deleteData.setText("מחק נתונים");
+                                    deleteData.setTextColor(getResources().getColor(R.color.White));
+                                    deleteData.setTypeface(tvFont);
+                                    deleteData.setTextSize(Globals.scaleDP * 22);
+                                    deleteData.setBackgroundResource(R.drawable.drawable_button);
+                                    deleteData.setLayoutParams(lptitle1);
+                                    empty = new TextView(MatchingResults.this);
+                                    empty.setLayoutParams(lptitle1);
+                                    rowDelete.addView(deleteData);
+                                    rowDelete.setLayoutParams(lp1);
+                                    rowEMPTY2.addView(empty);
+                                    rowEMPTY2.setLayoutParams(lp1);
+                                    //tableRes.addView(rowEMPTY2,2);
+                                    tableRes.addView(rowDelete,1);
+
+
+
+
+
                                     for(int i = 0; i < lengths[j]; i++)
                                     {
                                         TableRow row = new TableRow(MatchingResults.this);
@@ -260,6 +294,7 @@ public class MatchingResults extends AppCompatActivity {
                                         tableRes.addView(row, (i+1));
 
                                     }
+
 
                                 }
 
@@ -395,7 +430,21 @@ public class MatchingResults extends AppCompatActivity {
                     NewLP.topMargin = (int)(((NewLP.topMargin / Globals.DP)-15)*Globals.DP) ;
                 //view.setLayoutParams(NewLP);
             }
-
+            else if (view instanceof CardView)
+            {
+                if(Globals.Ratio >20f / 9f ) {
+                    NewLP.height = (int) (NewLP.height * 1.25f);
+                }
+                else if(Globals.Ratio >19f / 9f ) {
+                    NewLP.height = (int) (NewLP.height * 1.2f);
+                }
+                else if(Globals.Ratio >18f / 9f ) {
+                    NewLP.height = (int) (NewLP.height * 1.15f);
+                }
+                else if(Globals.Ratio >17f / 9f ) {
+                    NewLP.height = (int) (NewLP.height * 1.1f);
+                }
+            }
             view.setLayoutParams(NewLP);
 
             //view.setX(location[0]);
@@ -422,7 +471,6 @@ public class MatchingResults extends AppCompatActivity {
         rl.setLayoutParams(LPR);
 
         CardView c1 = (CardView) findViewById(R.id.CardViewResults);
-
 
         childCount = c1.getChildCount();
 
