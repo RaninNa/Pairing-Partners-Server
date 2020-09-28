@@ -333,8 +333,8 @@ public class MatchingResults extends AppCompatActivity {
                         } else {
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(MatchingResults.this);
-                            builder.setMessage("Check Failed")
-                                    .setNegativeButton("Retry", null)
+                            builder.setMessage("אין תוצאות כעת")
+                                    .setNegativeButton("בסדר", null)
                                     .create()
                                     .show();
 
