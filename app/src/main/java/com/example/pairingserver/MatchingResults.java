@@ -123,7 +123,7 @@ public class MatchingResults extends AppCompatActivity {
                                             if (coursescs[k].equals(Globals.partners[i].getCourse())) {
                                                 for (int m = 0; m < 3; m++) {
                                                     if (worktype[m].equals(Globals.partners[i].getWorkType())) {
-                                                        lengths[j + 5 * k + m]++;
+                                                        lengths[3 * k + m]++;
                                                         k = 5;
                                                         j = 2;
                                                         break;
@@ -133,7 +133,7 @@ public class MatchingResults extends AppCompatActivity {
                                             } else if (coursesmath[k].equals(Globals.partners[i].getCourse())) {
                                                 for (int m = 0; m < 3; m++) {
                                                     if (worktype[m].equals(Globals.partners[i].getWorkType())) {
-                                                        lengths[j * 15 + 5 * k + m]++;
+                                                        lengths[j * 15 + 3 * k + m]++;
                                                         k = 5;
                                                         j = 2;
                                                         break;
@@ -159,7 +159,7 @@ public class MatchingResults extends AppCompatActivity {
                                             if (coursescs[k].equals(Globals.partners[i].getCourse())) {
                                                 for (int m = 0; m < 3; m++) {
                                                     if (worktype[m].equals(Globals.partners[i].getWorkType())) {
-                                                        Globals.pairs[j + 5 * k + m].AddPartner(Globals.partners[i]);
+                                                        Globals.pairs[3 * k + m].AddPartner(Globals.partners[i]);
                                                         k = 5;
                                                         j = 2;
                                                         break;
@@ -169,7 +169,7 @@ public class MatchingResults extends AppCompatActivity {
                                             } else if (coursesmath[k].equals(Globals.partners[i].getCourse())) {
                                                 for (int m = 0; m < 3; m++) {
                                                     if (worktype[m].equals(Globals.partners[i].getWorkType())) {
-                                                        Globals.pairs[j * 15 + 5 * k + m].AddPartner(Globals.partners[i]);
+                                                        Globals.pairs[j * 15 + 3 * k + m].AddPartner(Globals.partners[i]);
                                                         k = 5;
                                                         j = 2;
                                                         break;
