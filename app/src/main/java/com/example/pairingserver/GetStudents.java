@@ -308,6 +308,7 @@ public class GetStudents extends AppCompatActivity {
 
                                 }
 
+
                         } else {
 
 
@@ -405,9 +406,16 @@ public class GetStudents extends AppCompatActivity {
                                                 }
                                             }
 
-
-                                            textViewRes.setText("הנתונים מוכנים! \n");
-                                            btnMatch.setEnabled(true);
+                                            if(Globals.students.length>1)
+                                            {
+                                                textViewRes.setText("הנתונים מוכנים! \n");
+                                                btnMatch.setEnabled(true);
+                                            }
+                                            else
+                                            {
+                                                textViewRes.setText("אין מספיק הנתונים! \n");
+                                                //btnMatch.setEnabled(true);
+                                            }
 
 
                                         } else {
