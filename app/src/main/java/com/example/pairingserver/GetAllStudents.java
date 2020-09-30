@@ -86,11 +86,13 @@ public class GetAllStudents extends AppCompatActivity {
             public void onClick(View view) {
                 for (int d = 0; d < Globals.GlobalData.length; d++) {
                     if (Globals.GlobalData[d] != null && Globals.GlobalData[d].scores.length > 1) {
-                        HungarianAlgorithm ha = new HungarianAlgorithm(Globals.GlobalData[d].scores);
+                        GetTwoPartsStudent(d);
+                        HungarianAlgorithm ha = new HungarianAlgorithm(Globals.pairs_scores_new);
                         int[][] assignment = ha.findOptimalAssignment();
                         String AllStudents = "@";
                         for (int i = 0; i < assignment.length; i++) {
-                            AllStudents += Globals.GlobalData[d].getStudents()[assignment[i][0]].getUser_name() + "@";
+                            AllStudents += Globals.studentsP1[assignment[i][0]].getUser_name() + "@";
+                            AllStudents += Globals.studentsP1[assignment[i][0]].getUser_name() + "@";
                         }
 
                         String res_string = " ";
@@ -98,26 +100,26 @@ public class GetAllStudents extends AppCompatActivity {
                         if (assignment.length > 1) {
                             // print assignment
                             for (int i = 0; i < assignment.length; i++) {
-                                if (AllStudents.contains("@" + Globals.GlobalData[d].getStudents()[assignment[i][0]].getUser_name() + "@")) {
+                                if (AllStudents.contains("@" + Globals.studentsP1[assignment[i][0]].getUser_name() + "@")) {
                                     res_string += Globals.GlobalData[d].getStudents()[assignment[i][0]].getName() + " <=> " + Globals.GlobalData[d].getStudents()[assignment[i][1]].getName() + "\n";
                                     JSONObject jsonObj = new JSONObject();
                                     try {
-                                        jsonObj.put("user_name", Globals.GlobalData[d].getStudents()[assignment[i][0]].getUser_name());
-                                        jsonObj.put("name", Globals.GlobalData[d].getStudents()[assignment[i][0]].getName());
-                                        jsonObj.put("email", Globals.GlobalData[d].getStudents()[assignment[i][0]].getEmail());
-                                        jsonObj.put("phone", Globals.GlobalData[d].getStudents()[assignment[i][0]].getPhone());
+                                        jsonObj.put("user_name", Globals.studentsP1[assignment[i][0]].getUser_name());
+                                        jsonObj.put("name", Globals.studentsP1[assignment[i][0]].getName());
+                                        jsonObj.put("email", Globals.studentsP1[assignment[i][0]].getEmail());
+                                        jsonObj.put("phone", Globals.studentsP1[assignment[i][0]].getPhone());
                                         jsonObj.put("agreed1", 0);
-                                        jsonObj.put("faculty", Globals.GlobalData[d].getStudents()[assignment[i][0]].getFaculty());
-                                        jsonObj.put("course", Globals.GlobalData[d].getStudents()[assignment[i][0]].getCourse());
-                                        jsonObj.put("workType", Globals.GlobalData[d].getStudents()[assignment[i][0]].getWork_type());
-                                        jsonObj.put("pairUserName", Globals.GlobalData[d].getStudents()[assignment[i][1]].getUser_name());
-                                        jsonObj.put("nameOfPair", Globals.GlobalData[d].getStudents()[assignment[i][1]].getName());
-                                        jsonObj.put("emailOfPair", Globals.GlobalData[d].getStudents()[assignment[i][1]].getEmail());
-                                        jsonObj.put("phoneOfPair", Globals.GlobalData[d].getStudents()[assignment[i][1]].getPhone());
+                                        jsonObj.put("faculty", Globals.studentsP1[assignment[i][0]].getFaculty());
+                                        jsonObj.put("course", Globals.studentsP1[assignment[i][0]].getCourse());
+                                        jsonObj.put("workType", Globals.studentsP1[assignment[i][0]].getWork_type());
+                                        jsonObj.put("pairUserName", Globals.studentsP2[assignment[i][1]].getUser_name());
+                                        jsonObj.put("nameOfPair", Globals.studentsP2[assignment[i][1]].getName());
+                                        jsonObj.put("emailOfPair", Globals.studentsP2[assignment[i][1]].getEmail());
+                                        jsonObj.put("phoneOfPair", Globals.studentsP2[assignment[i][1]].getPhone());
                                         jsonObj.put("agreed2", 0);
                                         jsonArray.put(jsonObj);
-                                        AllStudents = AllStudents.replace("@" + Globals.GlobalData[d].getStudents()[assignment[i][0]].getUser_name() + "@", "@");
-                                        AllStudents = AllStudents.replace("@" + Globals.GlobalData[d].getStudents()[assignment[i][1]].getUser_name() + "@", "@");
+                                        AllStudents = AllStudents.replace("@" + Globals.studentsP1[assignment[i][0]].getUser_name() + "@", "@");
+                                        AllStudents = AllStudents.replace("@" + Globals.studentsP2[assignment[i][1]].getUser_name() + "@", "@");
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -261,6 +263,7 @@ public class GetAllStudents extends AppCompatActivity {
 
                                                 Student student = new Student(user_name, Name, Location, Email, Phone, Gender, Age, Year, GradeAverage, PrefGen, Meeting, WorkPlan, WorkHours, ILocation, IGrade,
                                                         Faculty, Course, WorkType);
+
                                                 Globals.students[i] = student;
 
 
@@ -621,4 +624,70 @@ public class GetAllStudents extends AppCompatActivity {
         queue.add(removeGlobalPairsReq);
     }
 
+
+    void GetTwoPartsStudent(int K) {
+        int[] ScoresOfStudents = new int[Globals.GlobalData[K].getStudents().length];
+        for (int i = 0; i < Globals.GlobalData[K].getScores().length; i++) {
+
+            int sum = 0;
+            for (int c = 0; c < Globals.GlobalData[K].getScores().length; c++) {
+                sum += Globals.GlobalData[K].getScores()[i][c];
+            }
+            ScoresOfStudents[i] = sum;
+            Globals.GlobalData[K].getStudents()[i].setTotalScore(sum);
+        }
+        //Arrays.sort(ScoresOfStudents);
+        Student[] NewStudents = Globals.GlobalData[K].getStudents();
+        quickSort(NewStudents, 0, NewStudents.length - 1);
+
+        int count1 = 0, count2 = 0;
+        Globals.studentsP1 = new Student[NewStudents.length / 2];
+        Globals.studentsP2 = new Student[NewStudents.length / 2];
+        for (int i = 0; i < NewStudents.length; i++) {
+
+            if (i % 2 == 0) {
+                Globals.studentsP1[count1] = NewStudents[i];
+                count1++;
+            } else {
+                Globals.studentsP2[count2] = NewStudents[i];
+                count2++;
+            }
+        }
+        Globals.pairs_scores_new = new int[Globals.studentsP1.length][Globals.studentsP2.length];
+        for (int i = 0; i < Globals.studentsP1.length; i++) {
+            for (int c = 0; c < Globals.studentsP2.length; c++) {
+                Globals.pairs_scores_new[i][c] = Globals.GlobalData[K].getScores()[Globals.studentsP1[i].getNo()][Globals.studentsP2[c].getNo()];
+            }
+
+        }
+
+
+        return;
+    }
+
+    static int partition(Student[] array, int begin, int end) {
+        int pivot = end;
+
+        int counter = begin;
+        for (int i = begin; i < end; i++) {
+            if (array[i].getTotalScore() < array[pivot].getTotalScore()) {
+                Student temp = array[counter];
+                array[counter] = array[i];
+                array[i] = temp;
+                counter++;
+            }
+        }
+        Student temp = array[pivot];
+        array[pivot] = array[counter];
+        array[counter] = temp;
+
+        return counter;
+    }
+
+    public static void quickSort(Student[] array, int begin, int end) {
+        if (end <= begin) return;
+        int pivot = partition(array, begin, end);
+        quickSort(array, begin, pivot-1);
+        quickSort(array, pivot+1, end);
+    }
 }

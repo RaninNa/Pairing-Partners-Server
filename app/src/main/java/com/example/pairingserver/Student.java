@@ -18,6 +18,8 @@ public class Student {
     String faculty;
     String course;
     String work_type;
+    int totalScore;
+    int No;
 
     public Student(String user_name, String name, String location, String email, String phone, String gender, int age, String study_year, int GPA, String preferred_gender, String preferred_meetings, String preferred_work_plan, String preferred_hours, boolean location_flag, boolean GPA_flag, String faculty, String course, String work_type) {
         this.user_name = user_name;
@@ -185,4 +187,19 @@ public class Student {
         this.work_type = work_type;
     }
 
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
+    }
+
+    public int getNo() {
+        return No;
+    }
+
+    public void setNo(int no) {
+        No = no;
+    }
 }
