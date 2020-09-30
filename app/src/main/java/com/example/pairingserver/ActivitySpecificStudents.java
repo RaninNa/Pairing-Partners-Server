@@ -38,7 +38,17 @@ public class ActivitySpecificStudents extends AppCompatActivity {
         spinnerFaculty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ArrayAdapter<CharSequence> adapterF;
+                if (i == 0) {
+                    adapterF = ArrayAdapter.createFromResource(ActivitySpecificStudents.this,
+                            R.array.cs_courses_array, R.layout.spinner_item);
+                } else {
+                    adapterF = ArrayAdapter.createFromResource(ActivitySpecificStudents.this,
+                            R.array.math_courses_array, R.layout.spinner_item);
 
+                }
+                adapterF.setDropDownViewResource(R.layout.spinner_item_blue);
+                spinnerCourses.setAdapter(adapterF);
                 //Toast.makeText(getContext(), "this is " + i, Toast.LENGTH_SHORT).show();
             }
 

@@ -266,21 +266,22 @@ public class Helpers {
         Globals.pairs_scores = destinationarr;
     }
 
-    public static void RemoveRowColStudents(int n)
-    {
+    public static void RemoveRowColStudents(int n) {
         Student sourcearr[] = Globals.students;
-        Student destinationarr[] = new Student[Globals.students.length-1];
+        Student destinationarr[] = new Student[Globals.students.length - 1];
 
         int REMOVE_ROW = n;
         int p = 0;
-        for( int i = 0; i < Globals.students.length; ++i)
-        {
-            if ( i == REMOVE_ROW)
+        for (int i = 0; i < Globals.students.length; ++i) {
+            if (i == REMOVE_ROW)
                 continue;
             destinationarr[p] = sourcearr[i];
             p++;
         }
         Globals.students = destinationarr;
+        for (int i = 0; i < Globals.students.length; i++) {
+            Globals.students[i].setNo(i);
+        }
     }
 
     public static int[][] CheckScores(int[][] scores)

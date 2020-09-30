@@ -97,7 +97,7 @@ public class GetAllStudents extends AppCompatActivity {
 
                         String res_string = " ";
                         JSONArray jsonArray = new JSONArray();
-                        if (assignment.length > 1) {
+                        if (assignment.length > 0) {
                             // print assignment
                             for (int i = 0; i < assignment.length; i++) {
                                 if (AllStudents.contains("@" + Globals.studentsP1[assignment[i][0]].getUser_name() + "@")) {
