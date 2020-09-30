@@ -28,7 +28,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity {
-
+    TextView TVNoteResults;
+    Button btnMatchingResults;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +38,17 @@ public class MainActivity extends AppCompatActivity {
         FixLayoutAspects();
         Button btnSpecific = (Button) findViewById(R.id.btnSpecificMatching);
         Button btnGlobalMatch = (Button) findViewById(R.id.btnGlobalMatching);
-        final TextView TVNoteResults = (TextView) findViewById(R.id.TVNoteResults);
-        final Button btnMatchingResults = (Button) findViewById(R.id.btnShowMatchingResults);
+        TVNoteResults = (TextView) findViewById(R.id.TVNoteResults);
+        btnMatchingResults = (Button) findViewById(R.id.btnShowMatchingResults);
+        final Button btnRefresh = (Button) findViewById(R.id.btnRefresh);
         btnMatchingResults.setVisibility(View.INVISIBLE);
+        btnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnMatchingResults.setVisibility(View.INVISIBLE);
+                CheckMatchRes();
+            }
+        });
         btnSpecific.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,6 +74,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        CheckMatchRes();
+    }
+
+    void CheckMatchRes()
+    {
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -83,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                         if (success) {
                             if(ArrayStudentsCount>0)
                             {
-                                TVNoteResults.setText("יש כבר שידוך לתוצאות:");
+                                TVNoteResults.setText("יש כבר שידוך, לתוצאות:");
                                 btnMatchingResults.setVisibility(View.VISIBLE);
                             }
                             else
@@ -117,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
         queue.add(checkGlobalPairsReq);
 
     }
-
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     void GetScreenSizeScaleParameters()
     {

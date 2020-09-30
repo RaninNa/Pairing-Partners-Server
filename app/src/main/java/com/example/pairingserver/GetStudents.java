@@ -93,11 +93,15 @@ public class GetStudents extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (Globals.pairs_scores.length > 1) {
-                    HungarianAlgorithm ha = new HungarianAlgorithm(Globals.pairs_scores);
+
+                    GetTwoPartsStudent();
+
+                    HungarianAlgorithm ha = new HungarianAlgorithm(Globals.pairs_scores_new);
                     int[][] assignment = ha.findOptimalAssignment();
                     String AllStudents = "@";
                     for (int i = 0; i < assignment.length; i++) {
-                        AllStudents += Globals.students[assignment[i][0]].getUser_name() + "@";
+                        AllStudents += Globals.studentsP1[assignment[i][0]].getUser_name() + "@";
+                        AllStudents += Globals.studentsP2[assignment[i][0]].getUser_name() + "@";
                     }
 
                     String res_string = " ";
@@ -105,26 +109,26 @@ public class GetStudents extends AppCompatActivity {
                     if (assignment.length > 1) {
                         // print assignment
                         for (int i = 0; i < assignment.length; i++) {
-                            if (AllStudents.contains("@" + Globals.students[assignment[i][0]].getUser_name() + "@")) {
+                            if (AllStudents.contains("@" + Globals.studentsP1[assignment[i][0]].getUser_name() + "@")) {
                                 res_string += Globals.students[assignment[i][0]].getName() + " <=> " + Globals.students[assignment[i][1]].getName() + "\n";
                                 JSONObject jsonObj = new JSONObject();
                                 try {
-                                    jsonObj.put("user_name", Globals.students[assignment[i][0]].getUser_name());
-                                    jsonObj.put("name", Globals.students[assignment[i][0]].getName());
-                                    jsonObj.put("email", Globals.students[assignment[i][0]].getEmail());
-                                    jsonObj.put("phone", Globals.students[assignment[i][0]].getPhone());
+                                    jsonObj.put("user_name", Globals.studentsP1[assignment[i][0]].getUser_name());
+                                    jsonObj.put("name", Globals.studentsP1[assignment[i][0]].getName());
+                                    jsonObj.put("email", Globals.studentsP1[assignment[i][0]].getEmail());
+                                    jsonObj.put("phone", Globals.studentsP1[assignment[i][0]].getPhone());
                                     jsonObj.put("agreed1", 0);
-                                    jsonObj.put("faculty", Globals.students[assignment[i][0]].getFaculty());
-                                    jsonObj.put("course", Globals.students[assignment[i][0]].getCourse());
-                                    jsonObj.put("workType", Globals.students[assignment[i][0]].getWork_type());
-                                    jsonObj.put("pairUserName", Globals.students[assignment[i][1]].getUser_name());
-                                    jsonObj.put("nameOfPair", Globals.students[assignment[i][1]].getName());
-                                    jsonObj.put("emailOfPair", Globals.students[assignment[i][1]].getEmail());
-                                    jsonObj.put("phoneOfPair", Globals.students[assignment[i][1]].getPhone());
+                                    jsonObj.put("faculty", Globals.studentsP1[assignment[i][0]].getFaculty());
+                                    jsonObj.put("course", Globals.studentsP1[assignment[i][0]].getCourse());
+                                    jsonObj.put("workType", Globals.studentsP1[assignment[i][0]].getWork_type());
+                                    jsonObj.put("pairUserName", Globals.studentsP2[assignment[i][1]].getUser_name());
+                                    jsonObj.put("nameOfPair", Globals.studentsP2[assignment[i][1]].getName());
+                                    jsonObj.put("emailOfPair", Globals.studentsP2[assignment[i][1]].getEmail());
+                                    jsonObj.put("phoneOfPair", Globals.studentsP2[assignment[i][1]].getPhone());
                                     jsonObj.put("agreed2", 0);
                                     jsonArray.put(jsonObj);
-                                    AllStudents = AllStudents.replace("@" + Globals.students[assignment[i][0]].getUser_name() + "@", "@");
-                                    AllStudents = AllStudents.replace("@" + Globals.students[assignment[i][1]].getUser_name() + "@", "@");
+                                    AllStudents = AllStudents.replace("@" + Globals.studentsP1[assignment[i][0]].getUser_name() + "@", "@");
+                                    AllStudents = AllStudents.replace("@" + Globals.studentsP2[assignment[i][1]].getUser_name() + "@", "@");
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -226,87 +230,87 @@ public class GetStudents extends AppCompatActivity {
 
 
 
-                                if (Globals.partners.length > 0) {
-                                    TableRow rowTitle = new TableRow(GetStudents.this);
-                                    TableRow rowEMPTY = new TableRow(GetStudents.this);
-                                    TableRow.LayoutParams lp = new TableRow.LayoutParams((int) (100 * Globals.scaleDP));
-                                    TableRow.LayoutParams lptitle = new TableRow.LayoutParams((int) (50 * Globals.scaleDP), (int) (150 * Globals.scaleDP));
-                                    lp.gravity = Gravity.CENTER_HORIZONTAL;
-                                    lptitle.gravity = Gravity.CENTER_HORIZONTAL;
-                                    lptitle.rightMargin = (int) (60 * (Globals.scaleDP));
-                                    lptitle.weight = 1;
-                                    empty = new TextView(GetStudents.this);
-                                    title = new TextView(GetStudents.this);
-                                    title.setText(Globals.partners[0].getCourse() + " - " + Globals.partners[0].getWorkType());
-                                    title.setTextColor(getResources().getColor(R.color.BorderColor));
-                                    title.setTypeface(tvFont);
-                                    title.setTextSize(Globals.scaleDP * 22);
-                                    title.setLayoutParams(lptitle);
-                                    empty.setLayoutParams(lptitle);
+                            if (Globals.partners.length > 0) {
+                                TableRow rowTitle = new TableRow(GetStudents.this);
+                                TableRow rowEMPTY = new TableRow(GetStudents.this);
+                                TableRow.LayoutParams lp = new TableRow.LayoutParams((int) (100 * Globals.scaleDP));
+                                TableRow.LayoutParams lptitle = new TableRow.LayoutParams((int) (50 * Globals.scaleDP), (int) (150 * Globals.scaleDP));
+                                lp.gravity = Gravity.CENTER_HORIZONTAL;
+                                lptitle.gravity = Gravity.CENTER_HORIZONTAL;
+                                lptitle.rightMargin = (int) (60 * (Globals.scaleDP));
+                                lptitle.weight = 1;
+                                empty = new TextView(GetStudents.this);
+                                title = new TextView(GetStudents.this);
+                                title.setText(Globals.partners[0].getCourse() + " - " + Globals.partners[0].getWorkType());
+                                title.setTextColor(getResources().getColor(R.color.BorderColor));
+                                title.setTypeface(tvFont);
+                                title.setTextSize(Globals.scaleDP * 22);
+                                title.setLayoutParams(lptitle);
+                                empty.setLayoutParams(lptitle);
 
-                                    rowTitle.addView(title);
-                                    rowEMPTY.addView(empty);
-                                    rowTitle.setLayoutParams(lp);
-                                    rowEMPTY.setLayoutParams(lp);
-                                    tableRes.addView(rowEMPTY, 0);
-                                    tableRes.addView(rowTitle, 0);
+                                rowTitle.addView(title);
+                                rowEMPTY.addView(empty);
+                                rowTitle.setLayoutParams(lp);
+                                rowEMPTY.setLayoutParams(lp);
+                                tableRes.addView(rowEMPTY, 0);
+                                tableRes.addView(rowTitle, 0);
 
-                                    //deleteData = new Button(GetStudents.this);
+                                //deleteData = new Button(GetStudents.this);
 
-                                    for (int i = 0; i < Globals.partners.length; i++) {
-                                        TableRow row = new TableRow(GetStudents.this);
-                                        int width = (int) (450 * Globals.scaleDP* Globals.scaleRatio);
-                                        TableRow.LayoutParams lpname1 = new TableRow.LayoutParams(width, (int) (100 * Globals.scaleDP* Globals.scaleRatio));
-                                        TableRow.LayoutParams lpname2 = new TableRow.LayoutParams(width, (int) (100 * Globals.scaleDP* Globals.scaleRatio));
-                                        TableRow.LayoutParams lpstatus = new TableRow.LayoutParams((int) (80 * Globals.scaleDP* Globals.scaleRatio), (int) (100 * Globals.scaleDP* Globals.scaleRatio));
-                                        TableRow.LayoutParams lpNo = new TableRow.LayoutParams((int) (80 * Globals.scaleDP* Globals.scaleRatio), (int) (100 * Globals.scaleDP* Globals.scaleRatio));
-                                        lpname1.gravity = Gravity.CENTER_HORIZONTAL;
-                                        lpname2.gravity = Gravity.CENTER_HORIZONTAL;
-                                        lpNo.gravity = Gravity.CENTER_HORIZONTAL;
-                                        lpNo.leftMargin = (int) (20 * (Globals.scaleDP));
-                                        No = new TextView(GetStudents.this);
-                                        No.setText("" + (i + 1));
-                                        No.setTextColor(getResources().getColor(R.color.BorderColor));
-                                        No.setTextSize((int) (Globals.scaleDP * 22));
-                                        No.setLayoutParams(lpNo);
-                                        //minusBtn.setImageResource(R.drawable.minus);
-                                        name1 = new TextView(GetStudents.this);
-                                        name1.setTypeface(tvFont);
-                                        name1.setText(Globals.partners[i].getName());
-                                        name1.setTextColor(getResources().getColor(R.color.BorderColor));
-                                        name1.setTextSize((int) (Globals.scaleDP * 22));
-                                        name1.setLayoutParams(lpname1);
-                                        float size = name1.getTextSize();
+                                for (int i = 0; i < Globals.partners.length; i++) {
+                                    TableRow row = new TableRow(GetStudents.this);
+                                    int width = (int) (450 * Globals.scaleDP* Globals.scaleRatio);
+                                    TableRow.LayoutParams lpname1 = new TableRow.LayoutParams(width, (int) (100 * Globals.scaleDP* Globals.scaleRatio));
+                                    TableRow.LayoutParams lpname2 = new TableRow.LayoutParams(width, (int) (100 * Globals.scaleDP* Globals.scaleRatio));
+                                    TableRow.LayoutParams lpstatus = new TableRow.LayoutParams((int) (80 * Globals.scaleDP* Globals.scaleRatio), (int) (100 * Globals.scaleDP* Globals.scaleRatio));
+                                    TableRow.LayoutParams lpNo = new TableRow.LayoutParams((int) (80 * Globals.scaleDP* Globals.scaleRatio), (int) (100 * Globals.scaleDP* Globals.scaleRatio));
+                                    lpname1.gravity = Gravity.CENTER_HORIZONTAL;
+                                    lpname2.gravity = Gravity.CENTER_HORIZONTAL;
+                                    lpNo.gravity = Gravity.CENTER_HORIZONTAL;
+                                    lpNo.leftMargin = (int) (20 * (Globals.scaleDP));
+                                    No = new TextView(GetStudents.this);
+                                    No.setText("" + (i + 1));
+                                    No.setTextColor(getResources().getColor(R.color.BorderColor));
+                                    No.setTextSize((int) (Globals.scaleDP * 22));
+                                    No.setLayoutParams(lpNo);
+                                    //minusBtn.setImageResource(R.drawable.minus);
+                                    name1 = new TextView(GetStudents.this);
+                                    name1.setTypeface(tvFont);
+                                    name1.setText(Globals.partners[i].getName());
+                                    name1.setTextColor(getResources().getColor(R.color.BorderColor));
+                                    name1.setTextSize((int) (Globals.scaleDP * 22));
+                                    name1.setLayoutParams(lpname1);
+                                    float size = name1.getTextSize();
 
 
-                                        name2 = new TextView(GetStudents.this);
-                                        name2.setTypeface(tvFont);
-                                        name2.setText(Globals.partners[i].getPairName());
-                                        name2.setTextColor(getResources().getColor(R.color.BorderColor));
-                                        name2.setTextSize((int) (Globals.scaleDP * 22));
-                                        name2.setLayoutParams(lpname2);
+                                    name2 = new TextView(GetStudents.this);
+                                    name2.setTypeface(tvFont);
+                                    name2.setText(Globals.partners[i].getPairName());
+                                    name2.setTextColor(getResources().getColor(R.color.BorderColor));
+                                    name2.setTextSize((int) (Globals.scaleDP * 22));
+                                    name2.setLayoutParams(lpname2);
 
-                                        status = new TextView(GetStudents.this);
-                                        status.setTypeface(tvFont);
-                                        status.setTextColor(getResources().getColor(R.color.BorderColor));
-                                        status.setTextSize((int) (Globals.scaleDP * 20));
-                                        status.setLayoutParams(lpstatus);
-                                        if (Globals.partners[i].getAgreed1() == 1 && Globals.partners[i].getAgreed2() == 1)
-                                            status.setText("ש");
-                                        else
-                                            status.setText("ע");
+                                    status = new TextView(GetStudents.this);
+                                    status.setTypeface(tvFont);
+                                    status.setTextColor(getResources().getColor(R.color.BorderColor));
+                                    status.setTextSize((int) (Globals.scaleDP * 20));
+                                    status.setLayoutParams(lpstatus);
+                                    if (Globals.partners[i].getAgreed1() == 1 && Globals.partners[i].getAgreed2() == 1)
+                                        status.setText("ש");
+                                    else
+                                        status.setText("ע");
 
-                                        row.addView(No);
-                                        row.addView(name1);
-                                        row.addView(name2);
-                                        row.addView(status);
-                                        //row.setLayoutParams(lp);
-                                        tableRes.addView(row, (i + 1));
-
-                                    }
-
+                                    row.addView(No);
+                                    row.addView(name1);
+                                    row.addView(name2);
+                                    row.addView(status);
+                                    //row.setLayoutParams(lp);
+                                    tableRes.addView(row, (i + 1));
 
                                 }
+
+
+                            }
 
 
                         } else {
@@ -363,6 +367,7 @@ public class GetStudents extends AppCompatActivity {
 
                                                 Student student = new Student(user_name, Name, Location, Email, Phone, Gender, Age, Year, GradeAverage, PrefGen, Meeting, WorkPlan, WorkHours, ILocation, IGrade,
                                                         Globals.faculty, Globals.course, Globals.workType);
+                                                student.setNo(i);
                                                 Globals.students[i] = student;
 
 
@@ -655,5 +660,69 @@ public class GetStudents extends AppCompatActivity {
     }
 
 
+    void GetTwoPartsStudent() {
+        int[] ScoresOfStudents = new int[Globals.students.length];
+        for (int i = 0; i < Globals.pairs_scores.length; i++) {
 
+            int sum = 0;
+            for (int c = 0; c < Globals.pairs_scores.length; c++) {
+                sum += Globals.pairs_scores[i][c];
+            }
+            ScoresOfStudents[i] = sum;
+            Globals.students[i].setTotalScore(sum);
+        }
+        //Arrays.sort(ScoresOfStudents);
+        Student[] NewStudents = Globals.students;
+        quickSort(NewStudents, 0, NewStudents.length - 1);
+
+        int count1 = 0, count2 = 0;
+        Globals.studentsP1 = new Student[NewStudents.length / 2];
+        Globals.studentsP2 = new Student[NewStudents.length / 2];
+        for (int i = 0; i < NewStudents.length; i++) {
+
+            if (i % 2 == 0) {
+                Globals.studentsP1[count1] = NewStudents[i];
+                count1++;
+            } else {
+                Globals.studentsP2[count2] = NewStudents[i];
+                count2++;
+            }
+        }
+        Globals.pairs_scores_new = new int[Globals.studentsP1.length][Globals.studentsP2.length];
+        for (int i = 0; i < Globals.studentsP1.length; i++) {
+            for (int c = 0; c < Globals.studentsP2.length; c++) {
+                Globals.pairs_scores_new[i][c] = Globals.pairs_scores[Globals.studentsP1[i].getNo()][Globals.studentsP2[c].getNo()];
+            }
+
+        }
+
+
+        return;
+    }
+
+    static int partition(Student[] array, int begin, int end) {
+        int pivot = end;
+
+        int counter = begin;
+        for (int i = begin; i < end; i++) {
+            if (array[i].getTotalScore() < array[pivot].getTotalScore()) {
+                Student temp = array[counter];
+                array[counter] = array[i];
+                array[i] = temp;
+                counter++;
+            }
+        }
+        Student temp = array[pivot];
+        array[pivot] = array[counter];
+        array[counter] = temp;
+
+        return counter;
+    }
+
+    public static void quickSort(Student[] array, int begin, int end) {
+        if (end <= begin) return;
+        int pivot = partition(array, begin, end);
+        quickSort(array, begin, pivot-1);
+        quickSort(array, pivot+1, end);
+    }
 }

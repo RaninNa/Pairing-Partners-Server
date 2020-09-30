@@ -14,6 +14,7 @@ public class DataStructure {
     public void AddStudent(Student st) {
         if (students != null)
             if (count < students.length) {
+                st.setNo(count);
                 students[count] = st;
                 count++;
             }

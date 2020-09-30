@@ -283,4 +283,9 @@ public class Helpers {
         Globals.students = destinationarr;
     }
 
+    public static int[][] CheckScores(int[][] scores)
+    {
+
+        return  scores;
+    }
 }
